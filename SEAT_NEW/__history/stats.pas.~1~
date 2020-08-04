@@ -1,0 +1,373 @@
+unit stats;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, RzTabs, Vcl.Grids, AdvObj, BaseGrid, DateUtils,
+  AdvGrid, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ExtCtrls, Data.DB, Data.Win.ADODB,
+  tmsAdvGridExcel;
+
+type
+  TForm14 = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    date_all: TDateTimePicker;
+    btn_search1: TButton;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    combo_name: TComboBox;
+    Button1: TButton;
+    allGrid: TAdvStringGrid;
+    OneGrid: TAdvStringGrid;
+    RzPageControl1: TRzPageControl;
+    TabSheet1: TRzTabSheet;
+    TabSheet2: TRzTabSheet;
+    qry1: TADOQuery;
+    dateone: TDateTimePicker;
+    Button2: TButton;
+    AdvGridExcelIO1: TAdvGridExcelIO;
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btn_search1Click(Sender: TObject);
+    procedure allGridGetAlignment(Sender: TObject; ARow, ACol: Integer;
+    var HAlign: TAlignment; var VAlign: TVAlignment);
+    procedure OneGridGetAlignment(Sender: TObject; ARow, ACol: Integer;
+    var HAlign: TAlignment; var VAlign: TVAlignment);
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+    procedure init_allGrid;
+    procedure init_oneGrid;
+    procedure init_combo;
+    procedure do_getalldata;
+    procedure do_onedata(Name: String);
+    procedure conDB;
+    procedure disconDB;
+
+    function FirstOfMonth( Day: TDateTime ):TDateTime;
+    function LastOfMonth( Day: TDateTime ):TDateTime;
+
+  public
+    { Public declarations }
+  end;
+
+var
+  Form14: TForm14;
+
+implementation
+
+{$R *.dfm}
+
+uses Unit1;
+{ TForm14 }
+
+procedure TForm14.allGridGetAlignment(Sender: TObject; ARow, ACol: Integer;
+  var HAlign: TAlignment; var VAlign: TVAlignment);
+begin
+  HAlign := taCenter;
+  VAlign := vtaCenter;
+end;
+
+procedure TForm14.btn_search1Click(Sender: TObject);
+begin
+  init_allGrid;
+  do_getalldata;
+end;
+
+procedure TForm14.Button1Click(Sender: TObject);
+begin
+   init_oneGrid;
+
+   do_onedata(combo_name.Text);
+
+end;
+
+procedure TForm14.conDB;
+var
+  str :  String;
+begin
+//   if ADOConnection1.Connected then
+//    ADOConnection1.Connected := False;
+//    str := '';
+//    str := 'Provider=SQLOLEDB.1;Password=daehwa0815;Persist Security Info=True;User ID=sa;';
+//    str := str + 'Initial Catalog=apworksdw;Data Source=10.40.254.10;';
+//    str := str + ' Use Procedure for Prepare=1;Auto Translate=True;Packet Size=4096;Workstation ID=DESKTOP-QLCVHNA;';
+//    str := str + 'Use Encryption for Data=False;Tag with column collation when possible=False';
+//    ADOConnection1 := TADOConnection.Create(nil);
+//    ADOConnection1.LoginPrompt := False;
+//    ADOConnection1.ConnectionString:= str;
+//    ADOConnection1.Connected := True;
+end;
+
+procedure TForm14.disconDB;
+begin
+//  if ADOConnection1.Connected then
+//  ADOConnection1.Close;
+//
+//  ADOConnection1.Free;
+end;
+
+procedure TForm14.do_getalldata;
+var
+  CountCol,Count,ColNo: Integer;
+  TIME : String;
+begin
+  CountCol := 0;
+  Count := 0;
+  ColNo := 0;
+  //conDB;
+  qry1.SQL.Clear;
+  qry1.Parameters.Clear;
+  qry1.SQL.Text := 'select Count(DISTINCT(name)) as count from APW_IW_SEAT_CULJANG where date = :date and name <> :name';
+  qry1.Parameters.ParamByName('date').Value := DateToStr(date_all.Date);
+  qry1.Parameters.ParamByName('name').Value := '';
+  qry1.Open;
+  if qry1.Eof then Exit;
+  CountCol := qry1.FieldByName('count').AsInteger;
+
+  allGrid.ColCount := CountCol + 1;
+
+
+  qry1.SQL.Clear;
+  qry1.Parameters.Clear;
+  qry1.SQL.Text := 'SELECT name,time, GUBUN, culwhere,bigo FROM  APW_IW_SEAT_CULJANG where date = :date and name <>:name order by name, TIME ';
+  qry1.Parameters.ParamByName('date').Value := DateToStr(date_all.Date);
+  qry1.Parameters.ParamByName('name').Value := '';
+  qry1.Open;
+  if qry1.Eof then Exit;
+  for Count := 1 to qry1.RecordCount do
+    begin
+
+
+      if  allGrid.Cells[ColNo, 0] <> qry1.FieldByName('name').AsString  then
+      begin
+        ColNo := ColNo + 1;
+        allGrid.ColWidths[ColNo] := 150;
+      end;
+       if allGrid.Cells[Count, 0] = '' then allGrid.Cells[ColNo, 0] := qry1.FieldByName('name').AsString;
+      TIME := '';
+      TIME := qry1.FieldByName('TIME').AsString;
+      if TIME = '08' then
+      begin
+        allGrid.Cells[ColNo, 1] := qry1.FieldByName('GUBUN').AsString;
+      end
+      else if TIME = '09' then
+      begin
+        if allGrid.Cells[ColNo, 1] = '' then allGrid.Cells[ColNo, 1] := qry1.FieldByName('GUBUN').AsString;
+      end
+
+      else if TIME = '10' then allGrid.Cells[ColNo, 2] := qry1.FieldByName('GUBUN').AsString
+      else if TIME = '11' then allGrid.Cells[ColNo, 3] := qry1.FieldByName('GUBUN').AsString
+      else if TIME = '12' then allGrid.Cells[ColNo, 4] := qry1.FieldByName('GUBUN').AsString
+      else if TIME = '13' then allGrid.Cells[ColNo, 5] := qry1.FieldByName('GUBUN').AsString
+      else if TIME = '14' then allGrid.Cells[ColNo, 6] := qry1.FieldByName('GUBUN').AsString
+      else if TIME = '15' then allGrid.Cells[ColNo, 7] := qry1.FieldByName('GUBUN').AsString
+      else if TIME = '16' then allGrid.Cells[ColNo, 8] := qry1.FieldByName('GUBUN').AsString
+      else if TIME = '17' then allGrid.Cells[ColNo, 9] := qry1.FieldByName('GUBUN').AsString
+      else if TIME = '18' then allGrid.Cells[ColNo, 9] := qry1.FieldByName('GUBUN').AsString;
+
+      qry1.Next;
+
+    end;
+
+
+
+ // disconDB;
+/////
+end;
+
+procedure TForm14.do_onedata(Name: String);
+var
+  datetime,TIME:String;
+  Count, Countgun : Integer;
+begin
+ // conDB;
+  Countgun := 0;
+  Count := 0;
+  TIME := '';
+  qry1.SQL.Clear;
+  qry1.Parameters.Clear;
+  qry1.SQL.Text := 'EXEC SP_IW_S_DATEFIRSTEND :FIRST, :END';
+  qry1.Parameters.ParamByName('FIRST').Value := DateToStr(FirstOfMonth(dateone.Date));
+  qry1.Parameters.ParamByName('END').Value   := DateToStr(LastOfMonth(dateone.Date)+1);
+  qry1.Open;
+  if qry1.Eof then Exit;
+  OneGrid.ColCount := qry1.RecordCount + 1;
+  for Count := 1 to qry1.RecordCount do
+  begin
+    OneGrid.ColWidths[Count] := 150;
+    OneGrid.Cells[Count, 0] := qry1.FieldByName('regdate').AsString;
+    qry1.Next;
+  end;
+  Count := 0;
+  datetime := '';
+  datetime :=   Copy(DateToStr(dateone.Date),0,7);
+  qry1.SQL.Text := 'SELECT  *  FROM APW_IW_SEAT_CULJANG WHERE NAME = :NAME AND DATE LIKE :date ';
+  qry1.Parameters.ParamByName('NAME').Value  := Name;
+  qry1.Parameters.ParamByName('date').Value  := datetime + '%';
+  qry1.Open;
+  //ShowMessage(IntToStr(qry1.RecordCount));
+
+  if qry1.Eof then Exit;
+  for Countgun := 0 to qry1.RecordCount-1 do
+    begin
+    for Count := 1 to OneGrid.ColCount do
+     begin
+       if OneGrid.Cells[Count, 0] = qry1.FieldByName('date').AsString then
+       begin
+          TIME := qry1.FieldByName('TIME').AsString;
+          if TIME = '08' then
+             allGrid.Cells[Count, 1] := qry1.FieldByName('GUBUN').AsString
+
+          else if (TIME = '09') and (OneGrid.Cells[Count, 1] = '') then OneGrid.Cells[Count, 1] := qry1.FieldByName('GUBUN').AsString
+          else if TIME = '10' then OneGrid.Cells[Count, 2] := qry1.FieldByName('GUBUN').AsString
+          else if TIME = '11' then OneGrid.Cells[Count, 3] := qry1.FieldByName('GUBUN').AsString
+          else if TIME = '12' then OneGrid.Cells[Count, 4] := qry1.FieldByName('GUBUN').AsString
+          else if TIME = '13' then OneGrid.Cells[Count, 5] := qry1.FieldByName('GUBUN').AsString
+          else if TIME = '14' then OneGrid.Cells[Count, 6] := qry1.FieldByName('GUBUN').AsString
+          else if TIME = '15' then OneGrid.Cells[Count, 7] := qry1.FieldByName('GUBUN').AsString
+          else if TIME = '16' then OneGrid.Cells[Count, 8] := qry1.FieldByName('GUBUN').AsString
+          else if TIME = '17' then OneGrid.Cells[Count, 9] := qry1.FieldByName('GUBUN').AsString
+          else if TIME = '18' then OneGrid.Cells[Count, 9] := qry1.FieldByName('GUBUN').AsString;
+       end;
+     end;
+     qry1.Next;
+    end;
+
+
+
+//  disconDB;
+end;
+
+
+
+procedure TForm14.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+//  Action := caFree;
+end;
+
+procedure TForm14.FormShow(Sender: TObject);
+begin
+ init_allGrid;
+ init_oneGrid;
+ init_combo;
+ date_all.Date := Now;
+ do_getalldata;
+ do_onedata(Unit1.MyName);
+
+end;
+
+procedure TForm14.init_allGrid;
+begin
+  with allGrid do
+  begin
+      ClearAll;
+      RowCount := 10;
+      RowHeights[0] := 35;
+      RowHeights[1] := 35;
+      RowHeights[2] := 35;
+      RowHeights[3] := 35;
+      RowHeights[4] := 35;
+      RowHeights[5] := 35;
+      RowHeights[6] := 35;
+      RowHeights[7] := 35;
+      RowHeights[8] := 35;
+      RowHeights[9] := 35;
+    //  RowHeights[10] := 35;
+
+      Cells[0, 0] := 'Time';
+     // Cells[1, 0] := '상 태';
+      Cells[0, 1] := '9시~10시 ';
+      Cells[0, 2] := '10시~11시';
+      Cells[0, 3] := '11시~12시';
+      Cells[0, 4] := '12시~13시';
+      Cells[0, 5] := '13시~14시';
+      Cells[0, 6] := '14시~15시';
+      Cells[0, 7] := '15시~16시';
+      Cells[0, 8] := '16시~17시';
+      Cells[0, 9] := '17시~18시';
+     // Cells[0, 10] := '18시~19시';
+
+      ColWidths[0] := 100;
+
+  end;
+end;
+
+procedure TForm14.init_combo;
+var
+  Count: Integer;
+begin
+  Count := 0;
+ // conDB;
+  qry1.SQL.Clear;
+  combo_name.Clear;
+  qry1.Parameters.Clear;
+  qry1.SQL.Text := 'SELECT UNAME FROM SEAT_USERINFO';
+  qry1.Open;
+  for Count := 0 to qry1.RecordCount-1 do begin
+    combo_name.Items.Add(qry1.FieldByName('UNAME').AsString);
+
+    qry1.Next;
+  end;
+   combo_name.Text := Unit1.MyName;
+ // disconDB;
+end;
+
+procedure TForm14.init_oneGrid;
+begin
+  with OneGrid do
+  begin
+      ClearAll;
+      RowCount := 10;
+      RowHeights[0] := 35;
+      RowHeights[1] := 35;
+      RowHeights[2] := 35;
+      RowHeights[3] := 35;
+      RowHeights[4] := 35;
+      RowHeights[5] := 35;
+      RowHeights[6] := 35;
+      RowHeights[7] := 35;
+      RowHeights[8] := 35;
+      RowHeights[9] := 35;
+     // RowHeights[10] := 35;
+
+      Cells[0, 0] := 'Time';
+     // Cells[1, 0] := '상 태';
+      Cells[0, 1] := '9시~10시 ';
+      Cells[0, 2] := '10시~11시';
+      Cells[0, 3] := '11시~12시';
+      Cells[0, 4] := '12시~13시';
+      Cells[0, 5] := '13시~14시';
+      Cells[0, 6] := '14시~15시';
+      Cells[0, 7] := '15시~16시';
+      Cells[0, 8] := '16시~17시';
+      Cells[0, 9] := '17시~18시';
+     // Cells[0, 10] := '18시~19시';
+
+      ColWidths[0] := 100;
+
+  end;
+end;
+
+function TForm14.LastOfMonth(Day: TDateTime): TDateTime;
+begin
+ result := FirstOfMonth( FirstOfMonth(Day) + 32 ) - 1;
+end;
+
+function TForm14.FirstOfMonth(Day: TDateTime): TDateTime;
+// Day가 포함된 달의 첫째날을 돌려줌
+var nDay,nMonth,nYear: word;
+begin
+ DecodeDate(Day,nYear,nMonth,nDay);
+ result := EncodeDate(nYear,nMonth,1);
+end;
+
+procedure TForm14.OneGridGetAlignment(Sender: TObject; ARow, ACol: Integer;
+  var HAlign: TAlignment; var VAlign: TVAlignment);
+begin
+  HAlign := taCenter;
+  VAlign := vtaCenter;
+end;
+
+end.

@@ -1,0 +1,172 @@
+unit Tong_Worker;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, KingTool, Vcl.Grids, TheKing,  System.DateUtils,
+  System.Math,
+  Vcl.ExtCtrls, AdvUtil, AdvObj, BaseGrid, AdvGrid, Vcl.StdCtrls, Data.DB,
+  Data.Win.ADODB;
+
+type
+  TForm7 = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    KingCalendar1: TKingCalendar;
+    KingNavigator1: TKingNavigator;
+    AdvStringGrid1: TAdvStringGrid;
+    Button1: TButton;
+    Qry_MonList: TADOQuery;
+    procedure FormShow(Sender: TObject);
+    procedure KingNavigator1Click(Sender: TObject; Button: TCalcBtn);
+    procedure KingCalendar1MonthChange(Sender: TObject; Month: Integer);
+  private
+    { Private declarations }
+    procedure Do_getCalendarData(Month : String);
+    function CalcTime(WorkHour: integer): string;
+
+  public
+    { Public declarations }
+  end;
+
+var
+  Form7: TForm7;
+
+implementation
+
+{$R *.dfm}
+
+{ TForm7 }
+uses
+ Main;
+
+procedure TForm7.Do_getCalendarData(Month : String);
+var
+  Count :  Integer;
+begin
+   Count := 0;
+    KingCalendar1.ClearAllDays;
+    KingCalendar1.TextInCell := True;
+    KingCalendar1.ColorCellText := True;
+    KingCalendar1.ColorCellDay := False;
+    KingCalendar1.TextPlacement := ktTopLeft;
+
+    Qry_MonList.SQL.Clear;
+    Qry_MonList.Parameters.Clear;
+    Qry_MonList.SQL.Text := 'EXEC SP_IW_S_WorkListMonth :Month , :Name';
+
+    Qry_MonList.Parameters.ParamByName('Month').Value := Month;
+    Qry_MonList.Parameters.ParamByName('Name').Value  := 'ÃÖº´Ãµ';//Main.MyName;
+    Qry_MonList.Open;
+    if Qry_MonList.Eof then Exit;
+
+    for Count := 0 to Qry_MonList.RecordCount -1 do
+      begin
+         if (Qry_MonList.FieldByName('Sum_WorkHour').AsInteger >= 480) and (Qry_MonList.FieldByName('WEEK').AsInteger  in [2..6] )then
+         begin
+           KingCalendar1.SetDateFlag (Qry_MonList.FieldByName('Day').AsInteger, 1, CalcTime(Qry_MonList.FieldByName('Sum_WorkHour').AsInteger));
+         end
+         else if (Qry_MonList.FieldByName('Sum_WorkHour').AsInteger = 0) and (Qry_MonList.FieldByName('WEEK').AsInteger  in [2..6] )then
+         begin
+           KingCalendar1.SetDateFlag (Qry_MonList.FieldByName('Day').AsInteger, 2, CalcTime(Qry_MonList.FieldByName('Sum_WorkHour').AsInteger));
+         end
+         else  if   (Qry_MonList.FieldByName('Sum_WorkHour').AsInteger < 480)and (Qry_MonList.FieldByName('WEEK').AsInteger  in [2..6] ) then
+         begin
+            KingCalendar1.SetDateFlag (Qry_MonList.FieldByName('Day').AsInteger, 3, CalcTime(Qry_MonList.FieldByName('Sum_WorkHour').AsInteger));
+         end
+         else if (Qry_MonList.FieldByName('Sum_WorkHour').AsInteger >= 480) and (Qry_MonList.FieldByName('WEEK').AsInteger  in [1,7] )then
+         begin
+           KingCalendar1.SetDateFlag (Qry_MonList.FieldByName('Day').AsInteger, 1, CalcTime(Qry_MonList.FieldByName('Sum_WorkHour').AsInteger));
+         end
+         else  if (Qry_MonList.FieldByName('Sum_WorkHour').AsInteger < 480 and Qry_MonList.FieldByName('Sum_WorkHour').AsInteger > 0)and (Qry_MonList.FieldByName('WEEK').AsInteger  in [1,7] ) then
+         begin
+            KingCalendar1.SetDateFlag (Qry_MonList.FieldByName('Day').AsInteger, 3, CalcTime(Qry_MonList.FieldByName('Sum_WorkHour').AsInteger));
+         end
+         else begin
+             //
+         end;
+
+
+
+
+        Qry_MonList.Next;
+
+      end;
+
+
+
+
+
+    KingCalendar1.UpdateCalendar;
+
+ end;
+
+procedure TForm7.FormShow(Sender: TObject);
+begin
+ // KingCalendar1.Year := YearOf(Now);
+ // KingCalendar1.Month := MonthOf(Now);
+ // /KingCalendar1.Day := DayOf(Now);
+  KingCalendar1.Year := 2019;
+  KingCalendar1.Month := 12;
+  KingCalendar1.Day := 12;
+  Qry_MonList.Connection :=  Main.Form1.AdoCon;
+ // ShowMessage(Format('%.2d', [KingCalendar1.Month]));
+
+  Do_getCalendarData(IntToStr( KingCalendar1.Year) + '-' + Format('%.2d', [KingCalendar1.Month]));
+
+end;
+
+procedure TForm7.KingCalendar1MonthChange(Sender: TObject; Month: Integer);
+begin
+  //  Do_getCalendarData(IntToStr( KingCalendar1.Year) + '-' + Format('%.2d', [KingCalendar1.Month]));
+end;
+
+procedure TForm7.KingNavigator1Click(Sender: TObject; Button: TCalcBtn);
+begin
+ Do_getCalendarData(IntToStr( KingCalendar1.Year) + '-' + Format('%.2d', [KingCalendar1.Month]));
+end;
+function TForm7.CalcTime(WorkHour: integer): string;
+var
+  HH, MM : Integer;
+  Result_HH, Result_MM : string;
+begin
+
+  HH := (WorkHour div 60);
+  MM := (WorkHour mod 60);
+
+  if (Length(IntToStr(HH)) < 2) then
+  Begin
+
+    Result_HH := Format('%.2d', [HH]);
+
+  End
+  else
+  Begin
+
+    Result_HH := IntToStr(HH);
+
+  End;
+
+  if (Length(IntToStr(MM)) < 2) then
+  Begin
+
+    Result_MM := Format('%.2d', [MM]);
+
+  End
+  else
+  begin
+
+    Result_MM := IntToStr(MM)
+
+  end;
+
+  Result := Result_HH + ':' + Result_MM;
+
+end;
+
+end.

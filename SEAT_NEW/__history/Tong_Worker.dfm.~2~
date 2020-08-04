@@ -1,0 +1,150 @@
+object Form7: TForm7
+  Left = 0
+  Top = 0
+  Caption = 'Form7'
+  ClientHeight = 487
+  ClientWidth = 980
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 980
+    Height = 487
+    Align = alClient
+    Color = clActiveCaption
+    ParentBackground = False
+    TabOrder = 0
+    ExplicitLeft = 208
+    ExplicitTop = 56
+    ExplicitWidth = 185
+    ExplicitHeight = 41
+    object Panel2: TPanel
+      Left = 1
+      Top = 400
+      Width = 978
+      Height = 86
+      Align = alBottom
+      TabOrder = 0
+    end
+    object Panel3: TPanel
+      Left = 1
+      Top = 1
+      Width = 424
+      Height = 399
+      Align = alLeft
+      TabOrder = 1
+      ExplicitHeight = 485
+      object Panel5: TPanel
+        Left = 1
+        Top = 30
+        Width = 422
+        Height = 368
+        Align = alClient
+        TabOrder = 0
+        ExplicitLeft = -4
+        ExplicitTop = 48
+        ExplicitHeight = 41
+        object KingCalendar1: TKingCalendar
+          Left = 1
+          Top = 1
+          Width = 420
+          Height = 366
+          Align = alClient
+          BorderStyle = bsNone
+          Day = 31
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          Month = 12
+          ParentFont = False
+          Year = 2019
+          TabOrder = 0
+          TextPlacement = ktTopLeft
+          DowNames.Strings = (
+            'Sun'
+            'Mon'
+            'Tue'
+            'Wed'
+            'Thu'
+            'Fri'
+            'Sat')
+          ColorSets.ColorSet1 = clPurple
+          ColorSets.ColorSet2 = clBlue
+          ColorSets.ColorSet3 = clAqua
+          ColorSets.ColorSet4 = clGreen
+          ColorSets.ColorSet5 = clLime
+          ColorSets.ColorSet6 = clOlive
+          ColorSets.ColorSet7 = clYellow
+          ColorSets.ColorSet8 = clMaroon
+          ColorSets.ColorSet9 = clRed
+          StartingDay = 0
+          TextFont.Charset = DEFAULT_CHARSET
+          TextFont.Color = clWindowText
+          TextFont.Height = -11
+          TextFont.Name = 'Segoe UI'
+          TextFont.Style = []
+          TitleFont.Charset = ANSI_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = #44404#47548#52404
+          TitleFont.Style = []
+          ExplicitHeight = 354
+          RowHeights = (
+            12
+            58
+            58
+            58
+            58
+            58
+            58)
+        end
+      end
+      object Panel6: TPanel
+        Left = 1
+        Top = 1
+        Width = 422
+        Height = 29
+        Align = alTop
+        TabOrder = 1
+        object KingNavigator1: TKingNavigator
+          Left = 1
+          Top = 1
+          Width = 420
+          Height = 27
+          CalendarSource = KingCalendar1
+          Highlight = clBlue
+          Align = alClient
+          TabOrder = 0
+          CaptionInToday = True
+          TodayText = 'Today'
+          ParentShowHint = False
+          ExplicitLeft = 64
+          ExplicitTop = 14
+          ExplicitWidth = 316
+          ExplicitHeight = 21
+        end
+      end
+    end
+    object Panel4: TPanel
+      Left = 425
+      Top = 1
+      Width = 554
+      Height = 399
+      Align = alClient
+      TabOrder = 2
+      ExplicitLeft = 1
+      ExplicitWidth = 424
+      ExplicitHeight = 485
+    end
+  end
+end

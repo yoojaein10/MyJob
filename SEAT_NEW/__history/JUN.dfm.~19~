@@ -1,0 +1,491 @@
+object Form2: TForm2
+  Left = 0
+  Top = 0
+  BorderStyle = bsSizeToolWin
+  Caption = #51204#47168#53685#44228
+  ClientHeight = 386
+  ClientWidth = 347
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnClose = FormClose
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object D1: TPanel
+    Left = 0
+    Top = 0
+    Width = 347
+    Height = 33
+    Align = alTop
+    Color = clActiveCaption
+    ParentBackground = False
+    TabOrder = 0
+    object pr1: TRzBitBtn
+      Left = 276
+      Top = 1
+      Width = 70
+      Height = 31
+      FrameColor = 7617536
+      Align = alRight
+      BiDiMode = bdRightToLeftNoAlign
+      Caption = #44160#49353
+      Color = 15791348
+      Constraints.MaxHeight = 40
+      Constraints.MaxWidth = 70
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clDefault
+      Font.Height = -12
+      Font.Name = #44404#47548#52404
+      Font.Style = []
+      HotTrack = True
+      ParentBiDiMode = False
+      ParentFont = False
+      TabOrder = 0
+      Glyph.Data = {
+        F6060000424DF606000000000000360000002800000018000000180000000100
+        180000000000C0060000120B0000120B00000000000000000000FF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FF969190736E6EAF7D7EFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FF9792916C6C70174B82326089AF7B7BFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF8386863A79B11A81FF0D62
+        BC3B5F7FB07D7DFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF2698FF
+        3DB0FF349DFF1C7EF80C62BA395E7FB07B7DFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FF2996FF42ADFE349AFF1C7EF80C60B8405F7FB17D7BFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF2A96FE41AFFE349AFF1C7EF80C
+        5FB83E5F7EB07B7BFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF2A97
+        FE41AFFE349AFF1A7BF80B5FB744627FA97A7EFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FF2C98FE41ADFE349CFF197BF60C5EB62B587FFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF2D99FE41ADFE339CFF287FE7
+        3D607BFF00FFFF00FFFF00FF996964996964996964996964996964FF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF2D
+        9AFE4BB5FF8CBDEDAC9F966C565593665F996964DDCCABFFFFD9FFFFD9FFFFD7
+        E9D5B6996964996964FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFD1ADA5B68775CCAB8CFFFFD3FFFFD3FF
+        FFD0FFFFCFFFFFD0FFFFD3FFFFE2D4BAA4996964FF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF996B65D4AF8FFFEF
+        B0FBEDB8FFFFCFFFFFCEFFFFCFFFFFD7FFFFDCFFFFEAFFFFFFD3BBB8996964FF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        996964FFEAA6F2C78FFAEBB6FFFFD0FFFFCFFFFFD3FFFFE5FFFFF2FFFFFAFFFF
+        FCFFFFFE996964FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FF996964E6C9A0F6CA8BEEBA7FFBE7B4FFFFD0FFFFCFFFFFD7FFFFEB
+        FFFFFEFFFFFCFFFFF2FFFFE5D8C6A5996964FF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FF996964FFEFADF0BC7DEBB075F7DDA7FEFCCBFF
+        FFD1FFFFD5FFFFE6FFFFF6FFFFF6FFFFE6FFFFD7FFFFDA996964FF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF996964FFF0AFEFBA7BE9A5
+        6AF2C98FFCEFBCFFFFD1FFFFD3FFFFD9FFFFE1FFFFE2FFFFD9FFFFD3FFFFDA99
+        6964FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF996964
+        FFF2B2F3C484E99E63EDB57AF4D79FFCF4C2FFFFD1FFFFD3FFFFD3FFFFD3FFFF
+        D0FFFFCFFFFFD8996964FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FF996964E6C9A0FCDE9EEFBA7EEEB779EFC284F6DAA1FBF2BFFFFFCF
+        FFFFD1FFFFD0FFFFD0FFFFD1D9C6A5996964FF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FF996964FFFEC2FBEBCAF6D7ACF0C186EF
+        BF82F3CC95FAE3ADFCF0BCFBF4C1FEF6C4FFFFD4996964FF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF996964D7BB9EFFFF
+        FFFEF7EEF6D8ACEDB474E9A76BEDB478F0C48AF6D49CFFF4B6D3B799996964FF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FF996964CEB6AFFFFFFFFFF4CBF6CF90F0BC7DF2BF81F7CE90FFEDA9D4B1
+        93996964FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FF996964996964E1C9A0FFF7B5FFF2AFFFF2B1
+        E9CCA4996964996964FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF99696499
+        6964996964996964996964FF00FFFF00FFFF00FFFF00FFFF00FF}
+    end
+    object prBtn_Cancel: TRzBitBtn
+      Left = 196
+      Top = 1
+      Width = 80
+      Height = 31
+      FrameColor = 7617536
+      Align = alRight
+      Caption = #51217#44592
+      Color = 15791348
+      HotTrack = True
+      TabOrder = 1
+      OnClick = prBtn_CancelClick
+      Glyph.Data = {
+        76060000424D7606000000000000360400002800000018000000180000000100
+        0800000000004002000000000000000000000001000000000000FF00FF00003C
+        7A00003F8000004286000043880000448A0000479000004A9600004B9800004C
+        9A00004FA0000050A2000052A6000053A8000054AA000056AE000057B0000058
+        B2000059B500005CBA00005DBD00005FC0000060C2000061C4000064CA000065
+        CC000067D0000068D2000069D400006BD800006CDA00006DDC00006FE0000070
+        E2000071E4000073E8000074EA000075ED000077F0000078F2000079F400007B
+        F800007CF900007EFE000380FF000581FF000982FF000B84FF000E85FF001186
+        FF001388FF001689FF00198BFF001E8EFF00218FFF002190FF002792FF002893
+        FF002A94FF002D95FF003096FF003398FF00379AFF00399AFF003A9CFF003E9D
+        FF00409FFF0042A0FF0046A2FF0049A3FF004BA4FF004EA6FF0053A8FF0058AA
+        FF005AACFF005DADFF0060A5ED0060A8F20060ABF70060ABF80060ADFB0060AE
+        FD0066B1FF0068B3FF006AB5FF006DB6FF0073B8FF0074B8FF0078BBFF007BBC
+        FF007EBDFF0080BFFF0082C0FF0084C1FF008BC4FF008EC5FF009FC8F10090C7
+        FF0091C8FF0095C9FF0099CCFF009DCDFE00A0CFFF00A5D1FF00ABD4FF00ADD5
+        FF00B1D7FF00B4D9FF00B9DCFF00BCDDFF00FFFFFF0000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        00000000000000000000000000000000000000000C0C0A090706050505050505
+        05050505050402020000001412161414120F0F0C0F0C0C0C0F0C0C0C0F0C0702
+        020000142528282525231F1F1F1F1F1F1F1F1F1F1F201B070200001B2B2B2828
+        252523251F1F1F1F1F1F1F1F1F201F0F0500001F2C2B2B28282525231F1F1F1F
+        1F1F1F1F1F1F1F0F0400001F2F2F2B2B2828252525251F1F1F1B1F1B1F1F1F0C
+        050000253334312F2C666E4E252323234C6E601F1F1F1F0F0400002338393633
+        2F6E6E6E4E25254C6E6E6E1F1F1F1F0C0500002341413C3634526E6E6E4F4E6E
+        6E6E4C1F1F1F1F0C04000025494941363434526E6E6E6E6E6E4E251F1F1F1F0F
+        050000235656473939342F536E6E6E6E4E252525251F1F0C040000235C5C4939
+        3C3433536E6E6E6E4F2828252325250F050000255E5E523D3D38536E6E6E6E6E
+        6E4F28282525231209000023626253413D586E6E6E53536E6E6E4F2B28282514
+        0C00002362665741476E6E6E533431536E6E6E2B2B2828160F00002565665C47
+        496D6E5839383434536E522C2B2B2B180F00002365696247494944413D393938
+        3431312F2C2C2B1B14000023656B69565349494741414139383331312F2F2C1B
+        16000025616A6D6B6966655E585249423934332F2F312F251500002358666A6D
+        6D6B6965625852473C383333313131231B0000232B5C5E656565625E58564944
+        393434312F312C1F1B000000251F2325232325232325231F2523232523231B1F
+        0000000000000000000000000000000000000000000000000000}
+    end
+  end
+  object D2: TPanel
+    Left = 0
+    Top = 33
+    Width = 350
+    Height = 353
+    Align = alLeft
+    TabOrder = 1
+    object AdvStringGrid1: TAdvStringGrid
+      Left = 1
+      Top = 1
+      Width = 348
+      Height = 351
+      Cursor = crDefault
+      Align = alClient
+      ColCount = 3
+      DrawingStyle = gdsClassic
+      FixedCols = 0
+      RowCount = 5
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      Options = [goVertLine, goHorzLine, goRowSelect]
+      ParentFont = False
+      ScrollBars = ssNone
+      TabOrder = 0
+      GridLineColor = 15527152
+      GridFixedLineColor = 13947601
+      HoverRowCells = [hcNormal, hcSelected]
+      OnGetAlignment = AdvStringGrid1GetAlignment
+      OnDblClickCell = AdvStringGrid1DblClickCell
+      ActiveCellFont.Charset = DEFAULT_CHARSET
+      ActiveCellFont.Color = clWindowText
+      ActiveCellFont.Height = -11
+      ActiveCellFont.Name = 'Tahoma'
+      ActiveCellFont.Style = [fsBold]
+      ActiveCellColor = 16575452
+      ActiveCellColorTo = 16571329
+      Bands.Active = True
+      ControlLook.FixedGradientMirrorFrom = 16049884
+      ControlLook.FixedGradientMirrorTo = 16247261
+      ControlLook.FixedGradientHoverFrom = 16710648
+      ControlLook.FixedGradientHoverTo = 16446189
+      ControlLook.FixedGradientHoverMirrorFrom = 16049367
+      ControlLook.FixedGradientHoverMirrorTo = 15258305
+      ControlLook.FixedGradientDownFrom = 15853789
+      ControlLook.FixedGradientDownTo = 15852760
+      ControlLook.FixedGradientDownMirrorFrom = 15522767
+      ControlLook.FixedGradientDownMirrorTo = 15588559
+      ControlLook.FixedGradientDownBorder = 14007466
+      ControlLook.DropDownHeader.Font.Charset = DEFAULT_CHARSET
+      ControlLook.DropDownHeader.Font.Color = clWindowText
+      ControlLook.DropDownHeader.Font.Height = -11
+      ControlLook.DropDownHeader.Font.Name = 'Tahoma'
+      ControlLook.DropDownHeader.Font.Style = []
+      ControlLook.DropDownHeader.Visible = True
+      ControlLook.DropDownHeader.Buttons = <>
+      ControlLook.DropDownFooter.Font.Charset = DEFAULT_CHARSET
+      ControlLook.DropDownFooter.Font.Color = clWindowText
+      ControlLook.DropDownFooter.Font.Height = -11
+      ControlLook.DropDownFooter.Font.Name = 'Tahoma'
+      ControlLook.DropDownFooter.Font.Style = []
+      ControlLook.DropDownFooter.Visible = True
+      ControlLook.DropDownFooter.Buttons = <>
+      Filter = <>
+      FilterDropDown.Font.Charset = DEFAULT_CHARSET
+      FilterDropDown.Font.Color = clWindowText
+      FilterDropDown.Font.Height = -11
+      FilterDropDown.Font.Name = 'Tahoma'
+      FilterDropDown.Font.Style = []
+      FilterDropDown.TextChecked = 'Checked'
+      FilterDropDown.TextUnChecked = 'Unchecked'
+      FilterDropDownClear = '(All)'
+      FilterEdit.TypeNames.Strings = (
+        'Starts with'
+        'Ends with'
+        'Contains'
+        'Not contains'
+        'Equal'
+        'Not equal'
+        'Larger than'
+        'Smaller than'
+        'Clear')
+      FixedRowHeight = 22
+      FixedFont.Charset = DEFAULT_CHARSET
+      FixedFont.Color = clBlack
+      FixedFont.Height = -11
+      FixedFont.Name = 'Tahoma'
+      FixedFont.Style = [fsBold]
+      FloatFormat = '%.2f'
+      HoverButtons.Buttons = <>
+      HoverButtons.Position = hbLeftFromColumnLeft
+      HTMLSettings.ImageFolder = 'images'
+      HTMLSettings.ImageBaseName = 'img'
+      Look = glWin7
+      PrintSettings.DateFormat = 'dd/mm/yyyy'
+      PrintSettings.Font.Charset = DEFAULT_CHARSET
+      PrintSettings.Font.Color = clWindowText
+      PrintSettings.Font.Height = -11
+      PrintSettings.Font.Name = 'Tahoma'
+      PrintSettings.Font.Style = []
+      PrintSettings.FixedFont.Charset = DEFAULT_CHARSET
+      PrintSettings.FixedFont.Color = clWindowText
+      PrintSettings.FixedFont.Height = -11
+      PrintSettings.FixedFont.Name = 'Tahoma'
+      PrintSettings.FixedFont.Style = []
+      PrintSettings.HeaderFont.Charset = DEFAULT_CHARSET
+      PrintSettings.HeaderFont.Color = clWindowText
+      PrintSettings.HeaderFont.Height = -11
+      PrintSettings.HeaderFont.Name = 'Tahoma'
+      PrintSettings.HeaderFont.Style = []
+      PrintSettings.FooterFont.Charset = DEFAULT_CHARSET
+      PrintSettings.FooterFont.Color = clWindowText
+      PrintSettings.FooterFont.Height = -11
+      PrintSettings.FooterFont.Name = 'Tahoma'
+      PrintSettings.FooterFont.Style = []
+      PrintSettings.PageNumSep = '/'
+      SearchFooter.Color = 16645370
+      SearchFooter.ColorTo = 16247261
+      SearchFooter.FindNextCaption = 'Find &next'
+      SearchFooter.FindPrevCaption = 'Find &previous'
+      SearchFooter.Font.Charset = DEFAULT_CHARSET
+      SearchFooter.Font.Color = clWindowText
+      SearchFooter.Font.Height = -11
+      SearchFooter.Font.Name = 'Tahoma'
+      SearchFooter.Font.Style = []
+      SearchFooter.HighLightCaption = 'Highlight'
+      SearchFooter.HintClose = 'Close'
+      SearchFooter.HintFindNext = 'Find next occurrence'
+      SearchFooter.HintFindPrev = 'Find previous occurrence'
+      SearchFooter.HintHighlight = 'Highlight occurrences'
+      SearchFooter.MatchCaseCaption = 'Match case'
+      SearchFooter.ResultFormat = '(%d of %d)'
+      SortSettings.DefaultFormat = ssAutomatic
+      SortSettings.HeaderColor = 16579058
+      SortSettings.HeaderColorTo = 16579058
+      SortSettings.HeaderMirrorColor = 16380385
+      SortSettings.HeaderMirrorColorTo = 16182488
+      Version = '8.3.2.6'
+      ExplicitWidth = 295
+      ColWidths = (
+        64
+        64
+        64)
+      RowHeights = (
+        22
+        22
+        22
+        22
+        22)
+    end
+  end
+  object D3: TPanel
+    Left = 350
+    Top = 33
+    Width = 0
+    Height = 353
+    Align = alClient
+    Caption = 'D3'
+    TabOrder = 2
+    Visible = False
+    object AdvStringGrid2: TAdvStringGrid
+      Left = 1
+      Top = 1
+      Width = 0
+      Height = 351
+      Cursor = crDefault
+      Align = alClient
+      ColCount = 6
+      DrawingStyle = gdsClassic
+      FixedCols = 0
+      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect]
+      ScrollBars = ssBoth
+      TabOrder = 0
+      GridLineColor = 15527152
+      GridFixedLineColor = 13947601
+      HoverRowCells = [hcNormal, hcSelected]
+      ActiveCellFont.Charset = DEFAULT_CHARSET
+      ActiveCellFont.Color = clWindowText
+      ActiveCellFont.Height = -11
+      ActiveCellFont.Name = 'Tahoma'
+      ActiveCellFont.Style = [fsBold]
+      ActiveCellColor = 16575452
+      ActiveCellColorTo = 16571329
+      Bands.Active = True
+      ControlLook.FixedGradientMirrorFrom = 16049884
+      ControlLook.FixedGradientMirrorTo = 16247261
+      ControlLook.FixedGradientHoverFrom = 16710648
+      ControlLook.FixedGradientHoverTo = 16446189
+      ControlLook.FixedGradientHoverMirrorFrom = 16049367
+      ControlLook.FixedGradientHoverMirrorTo = 15258305
+      ControlLook.FixedGradientDownFrom = 15853789
+      ControlLook.FixedGradientDownTo = 15852760
+      ControlLook.FixedGradientDownMirrorFrom = 15522767
+      ControlLook.FixedGradientDownMirrorTo = 15588559
+      ControlLook.FixedGradientDownBorder = 14007466
+      ControlLook.DropDownHeader.Font.Charset = DEFAULT_CHARSET
+      ControlLook.DropDownHeader.Font.Color = clWindowText
+      ControlLook.DropDownHeader.Font.Height = -11
+      ControlLook.DropDownHeader.Font.Name = 'Tahoma'
+      ControlLook.DropDownHeader.Font.Style = []
+      ControlLook.DropDownHeader.Visible = True
+      ControlLook.DropDownHeader.Buttons = <>
+      ControlLook.DropDownFooter.Font.Charset = DEFAULT_CHARSET
+      ControlLook.DropDownFooter.Font.Color = clWindowText
+      ControlLook.DropDownFooter.Font.Height = -11
+      ControlLook.DropDownFooter.Font.Name = 'Tahoma'
+      ControlLook.DropDownFooter.Font.Style = []
+      ControlLook.DropDownFooter.Visible = True
+      ControlLook.DropDownFooter.Buttons = <>
+      Filter = <>
+      FilterDropDown.Font.Charset = DEFAULT_CHARSET
+      FilterDropDown.Font.Color = clWindowText
+      FilterDropDown.Font.Height = -11
+      FilterDropDown.Font.Name = 'Tahoma'
+      FilterDropDown.Font.Style = []
+      FilterDropDown.TextChecked = 'Checked'
+      FilterDropDown.TextUnChecked = 'Unchecked'
+      FilterDropDownClear = '(All)'
+      FilterEdit.TypeNames.Strings = (
+        'Starts with'
+        'Ends with'
+        'Contains'
+        'Not contains'
+        'Equal'
+        'Not equal'
+        'Larger than'
+        'Smaller than'
+        'Clear')
+      FixedRowHeight = 22
+      FixedFont.Charset = DEFAULT_CHARSET
+      FixedFont.Color = clBlack
+      FixedFont.Height = -11
+      FixedFont.Name = 'Tahoma'
+      FixedFont.Style = [fsBold]
+      FloatFormat = '%.2f'
+      HoverButtons.Buttons = <>
+      HoverButtons.Position = hbLeftFromColumnLeft
+      HTMLSettings.ImageFolder = 'images'
+      HTMLSettings.ImageBaseName = 'img'
+      Look = glWin7
+      PrintSettings.DateFormat = 'dd/mm/yyyy'
+      PrintSettings.Font.Charset = DEFAULT_CHARSET
+      PrintSettings.Font.Color = clWindowText
+      PrintSettings.Font.Height = -11
+      PrintSettings.Font.Name = 'Tahoma'
+      PrintSettings.Font.Style = []
+      PrintSettings.FixedFont.Charset = DEFAULT_CHARSET
+      PrintSettings.FixedFont.Color = clWindowText
+      PrintSettings.FixedFont.Height = -11
+      PrintSettings.FixedFont.Name = 'Tahoma'
+      PrintSettings.FixedFont.Style = []
+      PrintSettings.HeaderFont.Charset = DEFAULT_CHARSET
+      PrintSettings.HeaderFont.Color = clWindowText
+      PrintSettings.HeaderFont.Height = -11
+      PrintSettings.HeaderFont.Name = 'Tahoma'
+      PrintSettings.HeaderFont.Style = []
+      PrintSettings.FooterFont.Charset = DEFAULT_CHARSET
+      PrintSettings.FooterFont.Color = clWindowText
+      PrintSettings.FooterFont.Height = -11
+      PrintSettings.FooterFont.Name = 'Tahoma'
+      PrintSettings.FooterFont.Style = []
+      PrintSettings.PageNumSep = '/'
+      SearchFooter.Color = 16645370
+      SearchFooter.ColorTo = 16247261
+      SearchFooter.FindNextCaption = 'Find &next'
+      SearchFooter.FindPrevCaption = 'Find &previous'
+      SearchFooter.Font.Charset = DEFAULT_CHARSET
+      SearchFooter.Font.Color = clWindowText
+      SearchFooter.Font.Height = -11
+      SearchFooter.Font.Name = 'Tahoma'
+      SearchFooter.Font.Style = []
+      SearchFooter.HighLightCaption = 'Highlight'
+      SearchFooter.HintClose = 'Close'
+      SearchFooter.HintFindNext = 'Find next occurrence'
+      SearchFooter.HintFindPrev = 'Find previous occurrence'
+      SearchFooter.HintHighlight = 'Highlight occurrences'
+      SearchFooter.MatchCaseCaption = 'Match case'
+      SearchFooter.ResultFormat = '(%d of %d)'
+      SortSettings.DefaultFormat = ssAutomatic
+      SortSettings.HeaderColor = 16579058
+      SortSettings.HeaderColorTo = 16579058
+      SortSettings.HeaderMirrorColor = 16380385
+      SortSettings.HeaderMirrorColorTo = 16182488
+      Version = '8.3.2.6'
+      ExplicitWidth = 663
+      ColWidths = (
+        64
+        64
+        64
+        64
+        64
+        64)
+      RowHeights = (
+        22
+        22
+        22
+        22
+        22
+        22
+        22
+        22
+        22
+        22)
+    end
+  end
+  object qry_jun: TADOQuery
+    Connection = Form1.AdoCon
+    CursorType = ctStatic
+    LockType = ltBatchOptimistic
+    Parameters = <>
+    SQL.Strings = (
+      'EXEC SP_IW_S_KAIS_JUNCOUNT')
+    Left = 209
+    Top = 194
+  end
+end

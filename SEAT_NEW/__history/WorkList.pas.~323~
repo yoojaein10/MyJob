@@ -1,0 +1,1399 @@
+unit WorkList;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, dxSkinsCore,
+  dxSkinsDefaultPainters, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, dxSkinscxPCPainter, dxBarBuiltInMenu, AdvUtil,
+  cxContainer, cxEdit, Vcl.StdCtrls, RzButton, cxLabel, Vcl.ComCtrls, Vcl.Grids,
+  AdvObj, BaseGrid, AdvGrid, cxPC, Data.DB, Data.Win.ADODB;
+
+type
+  TForm3 = class(TForm)
+    Panel1: TPanel;
+    cxPageControl1: TcxPageControl;
+    cxTabSheet2: TcxTabSheet;
+    cxTabSheet3: TcxTabSheet;
+    cxTabSheet11: TcxTabSheet;
+    Panel31: TPanel;
+    ManGrid2: TAdvStringGrid;
+    Panel43: TPanel;
+    dateman: TDateTimePicker;
+    cxLabel9: TcxLabel;
+    Panel44: TPanel;
+    Panel46: TPanel;
+    btnaddwork: TButton;
+    btnrework: TButton;
+    ManGrid1: TAdvStringGrid;
+    Panel45: TPanel;
+    prworkcancel: TRzBitBtn;
+    prworksave: TRzBitBtn;
+    qrywork: TADOQuery;
+    pr2: TRzBitBtn;
+    btn1: TButton;
+    Panel2: TPanel;
+    pr1: TRzBitBtn;
+    pr_TsSAVE: TRzBitBtn;
+    Panel3: TPanel;
+    datets: TDateTimePicker;
+    cxLabel1: TcxLabel;
+    pr_tssearch: TRzBitBtn;
+    Panel4: TPanel;
+    grid_Ts: TAdvStringGrid;
+    pr3: TRzBitBtn;
+    Panel6: TPanel;
+    date_jiwon: TDateTimePicker;
+    cxLabel2: TcxLabel;
+    btn_Sjiwon: TRzBitBtn;
+    Panel7: TPanel;
+    Panel9: TPanel;
+    btn_SClose: TRzBitBtn;
+    btn_Savejiwon: TRzBitBtn;
+    Grid_jiwon: TAdvStringGrid;
+    btn_jiwonadd: TButton;
+    btn_jiwondel: TButton;
+    Panel5: TPanel;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Panel8: TPanel;
+    Label1: TLabel;
+    Btn_Edit: TRzBitBtn;
+    Label2: TLabel;
+    lb_worktime: TLabel;
+    Button4: TButton;
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ManGrid2CanEditCell(Sender: TObject; ARow, ACol: Integer;
+      var CanEdit: Boolean);
+    procedure btnaddworkClick(Sender: TObject);
+    procedure ManGrid1DblClickCell(Sender: TObject; ARow, ACol: Integer);
+    procedure ManGrid2DblClickCell(Sender: TObject; ARow, ACol: Integer);
+    procedure prworksaveClick(Sender: TObject);
+    procedure btnreworkClick(Sender: TObject);
+    procedure pr2Click(Sender: TObject);
+    procedure prworkcancelClick(Sender: TObject);
+    procedure btn1Click(Sender: TObject);
+    
+    procedure grid_TsCanEditCell(Sender: TObject; ARow, ACol: Integer;
+      var CanEdit: Boolean);
+    procedure pr_TsSAVEClick(Sender: TObject);
+    procedure pr3Click(Sender: TObject);
+    procedure grid_TsGetFloatFormat(Sender: TObject; ACol, ARow: Integer;
+      var IsFloat: Boolean; var FloatFormat: string);
+    procedure grid_TsRadioMouseUp(Sender: TObject; ACol, ARow, AIdx: Integer);
+    procedure Grid_jiwonGetFloatFormat(Sender: TObject; ACol, ARow: Integer;
+      var IsFloat: Boolean; var FloatFormat: string);
+
+    procedure Grid_jiwonKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+
+    
+    procedure Grid_jiwonEditCellDone(Sender: TObject; ACol, ARow: Integer);
+    procedure btn_SavejiwonClick(Sender: TObject);
+    procedure btn_jiwonaddClick(Sender: TObject);
+    procedure btn_jiwondelClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure grid_TsGetEditMask(Sender: TObject; ACol, ARow: Integer;
+      var Value: string);
+    procedure grid_TsCellValidate(Sender: TObject; ACol, ARow: Integer;
+      var Value: string; var Valid: Boolean);
+    procedure FormCreate(Sender: TObject);
+    procedure ManGrid2GetEditMask(Sender: TObject; ACol, ARow: Integer;
+      var Value: string);
+    procedure grid_TsDrawCell(Sender: TObject; ACol, ARow: Integer; Rect: TRect;
+      State: TGridDrawState);
+    procedure grid_TsGetCellColor(Sender: TObject; ARow, ACol: Integer;
+      AState: TGridDrawState; ABrush: TBrush; AFont: TFont);
+    procedure Grid_jiwonGetEditMask(Sender: TObject; ACol, ARow: Integer;
+      var Value: string);
+    procedure pr_tssearchClick(Sender: TObject);
+    procedure btn_SjiwonClick(Sender: TObject);
+
+    procedure Button3Click(Sender: TObject);
+    procedure ManGrid2KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure Btn_EditClick(Sender: TObject);
+    procedure ManGrid2EditCellDone(Sender: TObject; ACol, ARow: Integer);
+    procedure ManGrid2CellsChanged(Sender: TObject; R: TRect);
+    procedure Button4Click(Sender: TObject);
+
+
+  private
+    { Private declarations }
+    procedure INIT_MANGRID;
+    procedure INIT_TSGRID;
+    procedure do_GETMANDATA;
+    procedure do_GETWORKDATA;
+    procedure do_GETTSDATA;
+    procedure do_AddWork(docid : string);
+    procedure do_CalTS;
+
+    procedure do_INITJIWON;
+    procedure do_GETJIWONDATA;
+    procedure do_GetManager(docid: String; Arow : Integer);
+    procedure do_GetDocidData(Docid: string; ARow : Integer);
+    procedure do_Calculjiwon;
+    procedure chk_SAVE;
+
+    function FillZero(H,M : String) : string;
+
+
+    procedure Check_TabGubun;
+    function CalculTime(showtime: String):integer;
+    procedure do_getWeektime;
+    function CalcworkTime(WorkHour : integer) : string;
+    procedure LOCKMOUSE;
+    procedure UNLOCKMOUSE;
+
+    procedure LOCK_LOGIN;
+    procedure UNLOCK_LOGIN;
+  public
+    { Public declarations }
+  end;
+
+var
+  Form3: TForm3;
+  LOCKFlag : string;
+
+implementation
+
+uses
+ Main, WorkTong, WorkEdit , Tong_Worker;
+
+{$R *.dfm}
+
+procedure TForm3.btn1Click(Sender: TObject);
+begin
+  ManGrid2.AddRow;
+end;
+
+procedure TForm3.btnaddworkClick(Sender: TObject);
+begin
+  if ManGrid1.Row > 0 then  do_AddWork(ManGrid1.Cells[0, ManGrid1.Row]);
+end;
+
+procedure TForm3.btnreworkClick(Sender: TObject);
+begin
+  if (ManGrid2.Row >0 )and (ManGrid2.Cells[0, ManGrid2.Row] <>'') then
+  begin
+    ManGrid2.RemoveSelectedRows;
+  end;
+end;
+
+
+
+procedure TForm3.btn_jiwonaddClick(Sender: TObject);
+begin
+    if Grid_jiwon.Cells[0, Grid_jiwon.RowCount -1]  <> '' then
+    begin
+      Grid_jiwon.AddRow;
+      Grid_jiwon.SelectCells(0,(Grid_jiwon.RowCount-1),0,Grid_jiwon.RowCount -1);
+    end;
+end;
+
+procedure TForm3.btn_jiwondelClick(Sender: TObject);
+begin
+
+  Grid_jiwon.RemoveRows(Grid_jiwon.Row, 1);
+
+end;
+
+procedure TForm3.btn_SavejiwonClick(Sender: TObject);
+var
+  count : Integer;
+  Total ,Hour, Minute: Integer;
+begin
+///업무지원팀 저장
+   Total := 0;
+
+   for count := 1 to Grid_jiwon.RowCount -1 do
+   begin
+     if Grid_jiwon.Cells[0, Count]='' then   Grid_jiwon.RemoveRows(Count, 1);
+     if Grid_jiwon.Cells[1, count] = '' then
+     begin
+      Grid_jiwon.Cells[1, count] := '00:00';
+     end;
+     Grid_jiwon.Cells[6, count] := IntToStr(CalculTime(Grid_jiwon.Cells[1,Count]));
+     Total := Total + CalculTime(Grid_jiwon.Cells[1,Count]);
+   end;
+   Hour := Total div 60;
+   Minute := Total-(Hour * 60);
+   Label1.Caption := FillZero(IntToStr(Hour), IntToStr(Minute));
+//   Label1.Caption := IntToStr(Hour) + ' : ' + IntToStr(Minute);
+    qrywork.SQL.Clear;
+    qrywork.Parameters.Clear;
+    qrywork.SQL.Text := 'EXEC SP_IW_ID_MANWORK :name , :workdate, :docid, :workper, :writedate, :Gubun, :Manager, :workhour, :showhour,:flag ,:WorkBigo';
+    qrywork.Parameters.ParamByName('name').Value := Main.MyName;
+    qrywork.Parameters.ParamByName('workdate').Value := date_jiwon.Date;
+    qrywork.Parameters.ParamByName('docid').Value := '';
+    qrywork.Parameters.ParamByName('workper').Value := 0;
+    qrywork.Parameters.ParamByName('writedate').Value := Now;
+    qrywork.Parameters.ParamByName('Gubun').Value := 3;
+    qrywork.Parameters.ParamByName('Manager').Value := '';
+    qrywork.Parameters.ParamByName('workhour').Value := 0;
+    qrywork.Parameters.ParamByName('showhour').Value := '';
+    qrywork.Parameters.ParamByName('flag').Value := 2;
+    qrywork.Parameters.ParamByName('WorkBigo').Value := '';
+
+    qrywork.ExecSQL;
+    count := 0;
+  //ShowMessage('deletecom');
+
+  for count := 1 to Grid_jiwon.RowCount -1 do
+  begin
+    qrywork.SQL.Clear;
+    qrywork.Parameters.Clear;
+    qrywork.SQL.Text := 'EXEC SP_IW_ID_MANWORK :name , :workdate, :docid, :workper, :writedate, :Gubun, :Manager, :workhour, :showhour,:flag , :WorkBigo';
+    qrywork.Parameters.ParamByName('name').Value := Main.MyName;
+    qrywork.Parameters.ParamByName('workdate').Value := date_jiwon.Date;
+    qrywork.Parameters.ParamByName('docid').Value := Grid_jiwon.Cells[0, count];
+    if Grid_jiwon.Cells[1, count] = '00:00' then
+    begin
+
+      //qrywork.Parameters.ParamByName('name').Value := '';
+      qrywork.Parameters.ParamByName('workper').Value := 0;
+    end
+    else
+    begin
+
+      qrywork.Parameters.ParamByName('workper').Value := StrToFloat(Grid_jiwon.Cells[6, Count])/ Total * 100;
+
+    end;
+    qrywork.Parameters.ParamByName('writedate').Value := Now;
+    qrywork.Parameters.ParamByName('Gubun').Value := 3;
+    qrywork.Parameters.ParamByName('Manager').Value := Trim(Grid_jiwon.Cells[2, count]);
+    qrywork.Parameters.ParamByName('workhour').Value :=  CalculTime(Grid_jiwon.Cells[1, count]);
+    qrywork.Parameters.ParamByName('showhour').Value := Grid_jiwon.Cells[1, count];
+    qrywork.Parameters.ParamByName('flag').Value := 1;
+    qrywork.Parameters.ParamByName('WorkBigo').Value := Grid_jiwon.Cells[5,count];
+    qrywork.ExecSQL;
+  end;
+  ShowMessage('저장되었습니다.');
+//  INIT_MANGRID;
+//  do_GETMANDATA;
+   do_INITJIWON;
+   do_GETJIWONDATA;
+end;
+
+
+
+
+procedure TForm3.btn_SjiwonClick(Sender: TObject);
+begin
+  do_INITJIWON;
+  chk_SAVE;
+  do_GETJIWONDATA;
+  do_getWeektime;
+end;
+
+procedure TForm3.Button1Click(Sender: TObject);
+begin
+  WorkTong.Form4.Show;
+end;
+procedure TForm3.Btn_EditClick(Sender: TObject);
+begin
+  WorkEdit.Form5.Show;
+end;
+
+procedure TForm3.Button3Click(Sender: TObject);
+begin
+  ManGrid2.RemoveRows(ManGrid2.Row, 1);
+end;
+
+procedure TForm3.Button4Click(Sender: TObject);
+begin
+  Tong_Worker.Form7.Show;
+end;
+
+//   ShowMessage(FloatToStr(d));
+
+function TForm3.CalculTime(showtime: String): Integer;
+var
+  tmp: TStringList;
+  HH, MM: Integer;
+
+begin
+  HH := 0;
+  MM := 0;
+  Result := 0;
+  tmp := TStringList.Create;
+  tmp.Delimiter := ':';
+  tmp.DelimitedText := showtime;
+
+  HH := StrToInt(tmp[0])* 60;
+  MM := StrToInt(tmp[1]);
+
+  tmp.Free;
+
+  Result := HH+MM;
+end;
+
+
+procedure TForm3.Check_TabGubun;
+begin
+  qrywork.SQL.Clear;
+  qrywork.Parameters.Clear;
+  qrywork.SQL.Text := 'EXEC SP_IW_C_MANGUBUN :NAME , :DATE';
+  qrywork.Parameters.ParamByName('NAME').Value := MyName;
+  qrywork.Parameters.ParamByName('DATE').Value := dateman.Date;
+  qrywork.Open;
+
+  if qrywork.Eof then Exit;
+
+  if qrywork.FieldByName('gubun').AsInteger = 1 then
+  begin
+     cxPageControl1.ActivePageIndex := 0;
+//     cxPageControl1.Pages[2].Visible := False;
+  end
+  else if qrywork.FieldByName('gubun').AsInteger = 2 then
+  begin
+      cxPageControl1.ActivePageIndex := 1;
+//      cxPageControl1.Pages[2].Visible := False;
+  end
+  else if qrywork.FieldByName('gubun').AsInteger = 3 then
+  begin
+     cxPageControl1.ActivePageIndex := 2;
+//     cxPageControl1.Pages[0].Visible := False;
+//     cxPageControl1.Pages[1].Visible := False;
+  end
+  else
+  begin
+    cxPageControl1.ActivePageIndex := 0;
+  end;
+//  if (MyName = '안창덕') or (MyName = '이일우') then
+//  begin
+//    cxPageControl1.ActivePageIndex := 0;
+//    cxPageControl1.Pages[0].Visible := True;
+//    cxPageControl1.Pages[1].Visible := True;
+//    cxPageControl1.Pages[2].Visible := True;
+//
+//  end;
+
+
+
+end;
+
+procedure TForm3.chk_SAVE;
+var
+  RESULT : string;
+begin
+   qrywork.SQL.Clear;
+   qrywork.Parameters.Clear;
+   qrywork.SQL.Text := 'EXEC Sp_IW_CHECK_EDITWORK :NAME, :DATE';
+   qrywork.Parameters.ParamByName('NAME').Value := MyName;
+   if  cxPageControl1.ActivePageIndex = 0 then
+   begin
+     qrywork.Parameters.ParamByName('DATE').Value := dateman.Date;
+     //ShowMessage('1');
+   end
+   else if  cxPageControl1.ActivePageIndex = 1 then
+   begin
+      qrywork.Parameters.ParamByName('DATE').Value := datets.Date;
+     // ShowMessage('2');
+   end
+   else if  cxPageControl1.ActivePageIndex = 2 then
+   begin
+      qrywork.Parameters.ParamByName('DATE').Value := date_jiwon.Date;
+    //  ShowMessage('3');
+   end;
+   qrywork.Open;
+   RESULT := qrywork.FieldByName('result').AsString;
+  // ShowMessage(RESULT);
+   if RESULT = 'OK' then
+   begin
+    if cxPageControl1.ActivePageIndex = 0 then  prworksave.Visible := True
+    else if cxPageControl1.ActivePageIndex = 1 then  pr_TsSAVE.Visible := True
+    else if  cxPageControl1.ActivePageIndex = 2 then   btn_Savejiwon.Visible := True;
+   end
+   else
+   begin
+   if cxPageControl1.ActivePageIndex = 0 then  prworksave.Visible := False
+    else if cxPageControl1.ActivePageIndex = 1 then  pr_TsSAVE.Visible := False
+    else if  cxPageControl1.ActivePageIndex = 2 then   btn_Savejiwon.Visible := False;
+   end;
+
+
+
+end;
+
+procedure TForm3.do_AddWork(docid : string);
+var
+  Count: Integer;
+  dociduse: Boolean;
+begin
+///
+  Count := 0;
+  dociduse := False;
+  if (ManGrid2.RowCount  =2) and (ManGrid2.Cells[0, 1] ='') then
+  begin
+   ManGrid2.Cells[0,1] := docid;
+   ManGrid2.Cells[1,1] := IntToStr( 0);
+   ManGrid2.Cells[2,1] := ManGrid1.Cells[2, ManGrid1.Row];
+  end
+  else
+  begin
+    for Count := 1 to ManGrid2.RowCount-1 do
+    begin
+       if ManGrid2.Cells[0, Count] = docid then dociduse := True;
+
+    end;
+    if dociduse then
+    begin
+      ShowMessage('이미중복된 감정서번호가 있습니다.');
+      Exit;
+    end
+    else
+    begin
+      ManGrid2.AddRow;
+      ManGrid2.Cells[0, ManGrid2.RowCount -1] := docid;
+      ManGrid2.Cells[1, ManGrid2.RowCount -1] := '0';
+      ManGrid2.Cells[2, ManGrid2.RowCount -1] := ManGrid1.Cells[2, ManGrid1.Row];
+    end;
+  end;
+
+//  ManGrid2.InsertNormalRow();
+end;
+
+procedure TForm3.do_Calculjiwon;
+var
+  Totaltime, AvgScore : Double;
+  Count : Integer;
+begin
+//
+// Totaltime := 0;
+// AvgScore := 0;
+// Count := 0;
+// for Count := 1 to Grid_jiwon.RowCount-1 do
+//    begin
+//      if Grid_jiwon.Cells[0, Count]='' then   Grid_jiwon.RemoveRows(Count, 1);
+//    end;
+//
+// for Count := 1 to Grid_jiwon.RowCount-1 do
+//   begin
+//     Totaltime := Totaltime +  StrToFloat(Grid_jiwon.Cells[1, Count]);
+//
+//   end;
+//  // ShowMessage(FloatToStr(Totaltime));
+//    AvgScore :=  100 / Totaltime;
+//   // ShowMessage(FormatFloat('##.##', AvgScore));
+// for Count := 1 to Grid_jiwon.RowCount -1 do
+//   begin
+//     if Grid_jiwon.Cells[1, Count] <> '' then
+//      begin
+//        Grid_jiwon.Cells[5, Count] := FormatFloat('##.#',StrToFloat(FormatFloat('##.##', AvgScore)) * StrToFloat(Grid_jiwon.Cells[1, Count]));
+//
+//      end;
+//   end;
+end;
+
+procedure TForm3.do_CalTS;
+var
+  Hlevel, Mlevel, Elevel, Nolevel, ETCLEVEL: Integer;
+  Htotal, MTotal, ETotal, NoTotal, TotalHAP : Integer;
+  TotalScore, HScore, EScore, MScore: Double;
+  Count, idx: Integer;
+ // tmp: TStringList;
+begin
+   Hlevel := 0;
+   Mlevel := 0;
+   Elevel := 0;
+   Nolevel := 0;
+   ETCLEVEL := 0;
+   Count := 0;
+   for Count :=1 to grid_Ts.RowCount-1 do
+     begin
+       if grid_Ts.GetRadioIdx(3, Count , idx) then
+       begin
+          if idx = 0  then  Hlevel := Hlevel + 1
+          else if idx = 1 then Mlevel := Mlevel + 1
+          else if idx = 2 then Elevel := Elevel + 1
+          else if idx = 3 then Nolevel := Nolevel + 1
+          else ETCLEVEL := ETCLEVEL +1;
+       end;
+
+
+     end;
+     ETotal := Elevel * 50;
+     MTotal := Mlevel * 100;
+     Htotal := Hlevel * 150;
+     TotalHAP := ETotal + MTotal + Htotal;
+
+     HScore :=  (Htotal/TotalHAP)*100;
+     MScore :=  (Mtotal/TotalHAP)*100;
+     EScore :=  (Etotal/TotalHAP)*100;
+
+   // ShowMessage(FloatToStr(TotalScore));
+    for Count :=1 to grid_Ts.RowCount-1 do
+     begin
+       if grid_Ts.GetRadioIdx(3, Count , idx) then
+       begin
+
+          if idx = 0  then    grid_Ts.Cells[4, Count] := FloatToStr(HScore / Hlevel)
+          else if idx = 1 then  grid_Ts.Cells[4, Count] := FloatToStr(MScore / Mlevel)
+          else if idx = 2 then  grid_Ts.Cells[4, Count] := FloatToStr(EScore / Elevel)
+          else if idx = 3 then  grid_Ts.Cells[4, Count] := '0'
+          else grid_Ts.Cells[4, Count] := '-';
+
+         if idx = 0  then    grid_Ts.Cells[5, Count] := '10' //FloatToStr((HScore / Hlevel)*8/100*60)
+          else if idx = 1 then  grid_Ts.Cells[5, Count] := '5'//.FloatToStr((MScore / Mlevel)*8/100*60)
+          else if idx = 2 then  grid_Ts.Cells[5, Count] := '3'//FloatToStr((EScore / Elevel)*8/100*60)
+          else if idx = 3 then  grid_Ts.Cells[5, Count] := '0'
+          else grid_Ts.Cells[5, Count] := '-';
+        //  grid_Ts.Cells[5,4]  := FormatDateTime('HH:MM', 1.4);
+
+
+       end;
+       end;
+
+
+end;
+
+procedure TForm3.do_GetDocidData(Docid: string; ARow: Integer);
+begin
+  qrywork.SQL.Clear;
+  qrywork.Parameters.Clear;
+  qrywork.SQL.Text := 'SELECT Manager FROM APW_MasterEx Where docid = :docid';
+  qrywork.Parameters.ParamByName('docid').Value := docid;
+  qrywork.Open;
+
+  if qrywork.Eof then
+  begin
+    ShowMessage('등록되지않은 감정서번호입니다.');
+    ManGrid2.Cells[0, ARow] := '';
+    Exit;
+  end;
+
+  ManGrid2.Cells[2, Arow] := qrywork.FieldByName('Manager').AsString;
+
+  qrywork.Close;
+end;
+
+procedure TForm3.do_GETJIWONDATA;
+//    SP_IW_S_MANWORK
+var
+  Count : Integer;
+begin
+  Count := 0;
+  qrywork.SQL.Clear;
+  qrywork.Parameters.Clear;
+  qrywork.SQL.Text := 'EXEC SP_IW_S_MANWORK :name , :date, :Gubun';
+  qrywork.Parameters.ParamByName('name').Value := MyName;
+  qrywork.Parameters.ParamByName('date').Value := date_jiwon.Date;
+  qrywork.Parameters.ParamByName('Gubun').Value := 3;
+  qrywork.Open;
+
+  if qrywork.Eof then Exit;
+
+  Grid_jiwon.RowCount := qrywork.RecordCount + 1;
+
+  for Count := 1 to Grid_jiwon.RowCount -1 do
+  begin
+    Grid_jiwon.Cells[0, Count] := qrywork.FieldByName('docid').AsString;
+    Grid_jiwon.Cells[1, Count] := qrywork.FieldByName('showhour').AsString;
+    Grid_jiwon.Cells[2, Count] := qrywork.FieldByName('Manager').AsString;
+    Grid_jiwon.Cells[3, Count] := qrywork.FieldByName('Charge').AsString;
+    Grid_jiwon.Cells[4, Count] := qrywork.FieldByName('Address').AsString;
+    Grid_jiwon.Cells[5, Count] := qrywork.FieldByName('workper').AsString;
+    Grid_jiwon.Cells[6, Count] := qrywork.FieldByName('workhour').AsString;
+    Grid_jiwon.Cells[7, Count] := qrywork.FieldByName('WorkBigo').AsString;
+    qrywork.Next;
+  end;
+  qrywork.Close;
+
+end;
+
+procedure TForm3.do_GetManager(docid: String; Arow: Integer);
+begin
+  qrywork.SQL.Clear;
+  qrywork.Parameters.Clear;
+  qrywork.SQL.Text := 'SELECT Manager, Address, Charge FROM APW_MasterEx Where docid = :docid';
+  qrywork.Parameters.ParamByName('docid').Value := docid;
+  qrywork.Open;
+
+  if qrywork.Eof then
+  begin
+    ShowMessage('등록되지않은 감정서번호입니다.');
+    Exit;
+  end;
+                               //2,3,4
+  Grid_jiwon.Cells[2, Arow] := qrywork.FieldByName('Manager').AsString;
+  Grid_jiwon.Cells[3, Arow] := qrywork.FieldByName('Charge').AsString;
+  Grid_jiwon.Cells[4, Arow] := qrywork.FieldByName('Address').AsString;
+
+  qrywork.Close;
+
+end;
+
+procedure TForm3.do_GETMANDATA;
+var
+  Count : Integer;
+begin
+  Count := 0;
+  qrywork.SQL.Clear;
+  qrywork.Parameters.Clear;
+  qrywork.SQL.Text := 'EXEC SP_IW_S_MANBAELIST :name , :date, :Kind';
+  qrywork.Parameters.ParamByName('name').Value := MyName;
+  qrywork.Parameters.ParamByName('date').Value := dateman.Date;
+  qrywork.Parameters.ParamByName('Kind').Value := 1;
+  qrywork.Open;
+
+ // if qrywork.Eof then Exit;
+
+  ManGrid1.RowCount := qrywork.RecordCount + 1;
+
+  for Count := 1 to ManGrid1.RowCount -1 do
+  begin
+    ManGrid1.Cells[0, Count] := qrywork.FieldByName('docid').AsString;
+    ManGrid1.Cells[1, Count] := qrywork.FieldByName('addr').AsString;
+    ManGrid1.Cells[2, Count] := qrywork.FieldByName('Manager').AsString;
+    ManGrid1.Cells[3, Count] := qrywork.FieldByName('Lstatus').AsString;
+    qrywork.Next;
+  end;
+  qrywork.Close;
+
+end;
+
+procedure TForm3.do_GETTSDATA;
+var
+  Count: Integer;
+  tsSrcore : TStringList;
+begin
+  tsSrcore := TStringList.Create;
+  tsSrcore.Add('어려움');
+  tsSrcore.Add('보통');
+  tsSrcore.Add('쉬움');
+  tsSrcore.Add('해당없음');
+  qrywork.SQL.Clear;
+  qrywork.Parameters.Clear;
+  qrywork.SQL.Text := 'EXEC SP_IW_S_MANBAELIST :name, :date, :kind ';
+  qrywork.Parameters.ParamByName('name').Value := MyName;
+  qrywork.Parameters.ParamByName('date').Value := datets.Date;
+  qrywork.Parameters.ParamByName('kind').Value := 2;
+  qrywork.Open;
+  if qrywork.Eof then Exit;
+  grid_Ts.RowCount := qrywork.RecordCount +1;
+  for Count := 1 to grid_Ts.RowCount -1  do
+    begin
+       grid_Ts.Cells[0, Count] := qrywork.FieldByName('MasterID').AsString;
+       grid_Ts.Cells[1, Count] := qrywork.FieldByName('Addr').AsString;
+      // grid_Ts.Cells[2, Count] := qrywork.FieldByName('score').AsString;
+
+       grid_Ts.Cells[2, Count] := qrywork.FieldByName('emp').AsString;
+       //grid_Ts.CreateRadio(3, Count, 1, -1).AddStrings(tsSrcore);
+       grid_Ts.CreateRadio(3, Count, 1, qrywork.FieldByName('score').AsInteger).AddStrings(tsSrcore);
+       grid_Ts.Cells[6, Count] := qrywork.FieldByName('workhour').AsString;
+       qrywork.Next;
+    end;
+
+   tsSrcore.Free;
+   //qrywork.Close;
+
+
+end;
+
+procedure TForm3.do_getWeektime;
+begin
+  qrywork.SQL.Clear;
+  qrywork.Parameters.Clear;
+  qrywork.SQL.Text := 'Exec SP_IW_S_WEEKWORKTIME :NAME, :workdate';
+  qrywork.Parameters.ParamByName('NAME').Value := MyName;
+  if cxPageControl1.ActivePageIndex = 0 then
+  begin
+    qrywork.Parameters.ParamByName('workdate').Value := dateman.Date;
+  end
+  else if cxPageControl1.ActivePageIndex = 1 then
+  begin
+    qrywork.Parameters.ParamByName('workdate').Value := datets.Date;
+  end
+  else if cxPageControl1.ActivePageIndex = 2 then
+  begin
+    qrywork.Parameters.ParamByName('workdate').Value := date_jiwon.Date;
+  end
+  else
+  begin
+     qrywork.Parameters.ParamByName('workdate').Value := dateman.Date;
+  end;
+  qrywork.Open;
+  if qrywork.Eof then lb_worktime.Caption := '00:00';
+  lb_worktime.Caption := CalcworkTime(qrywork.FieldByName('WEEKHour').AsInteger);
+  if (qrywork.FieldByName('WEEKHour').AsInteger >=2400) and (qrywork.FieldByName('WEEKHour').AsInteger < 3000) then
+  begin
+    lb_worktime.Color := $3399FF;
+  end
+  else if (qrywork.FieldByName('WEEKHour').AsInteger >= 3000)  then
+  begin
+    lb_worktime.Color :=  $0033FF;
+  end
+  else  lb_worktime.Color :=  clBlack;
+
+
+
+
+end;
+
+procedure TForm3.do_GETWORKDATA;
+var
+  Count : Integer;
+begin
+
+  Count := 0;
+  qrywork.SQL.Clear;
+  qrywork.Parameters.Clear;
+  qrywork.SQL.Text := 'EXEC SP_IW_S_MANWORK :name , :date, :gubun ';
+  qrywork.Parameters.ParamByName('name').Value := MyName;
+  qrywork.Parameters.ParamByName('date').Value := dateman.Date;
+  qrywork.Parameters.ParamByName('gubun').Value := 1;
+  qrywork.Open;
+  //ShowMessage(IntToStr(qrywork.RecordCount + 1));
+  if qrywork.Eof then Exit;
+
+  ManGrid2.RowCount := qrywork.RecordCount + 1;
+
+  for Count := 1 to ManGrid2.RowCount -1 do
+  begin
+    ManGrid2.Cells[0, Count] := qrywork.FieldByName('docid').AsString;
+    ManGrid2.Cells[1, Count] := qrywork.FieldByName('showhour').AsString;
+    ManGrid2.Cells[2, Count] := qrywork.FieldByName('Manager').AsString;
+    ManGrid2.Cells[4, Count] := qrywork.FieldByName('WorkBigo').AsString;
+    qrywork.Next;
+  end;
+  qrywork.Close;
+
+end;
+
+procedure TForm3.do_INITJIWON;
+begin
+  Grid_jiwon.Clear;
+  Grid_jiwon.RowCount := 2;
+  Grid_jiwon.ColCount := 8;
+
+  Grid_jiwon.Cells[0, 0] := '감정서번호';
+  Grid_jiwon.Cells[1, 0] := '업무시간';
+  Grid_jiwon.Cells[2, 0] := '유치자';
+  Grid_jiwon.Cells[3, 0] := '배정';
+  Grid_jiwon.Cells[4, 0] := '소재지';
+  Grid_jiwon.Cells[5, 0] := '업무기여도';
+  Grid_jiwon.Cells[6, 0] := 'workh';
+  Grid_jiwon.Cells[7, 0] := '업무비고';
+
+  Grid_jiwon.ColWidths[6] := 0;
+  Grid_jiwon.ColWidths[5] := 0;
+  Grid_jiwon.ColWidths[7] := 100;
+  chk_SAVE;
+end;
+
+function TForm3.FillZero(H, M: String): string;
+var
+  Hour, Min: string;
+
+begin
+
+  if Length(H) = 1 then
+  begin
+   Hour := Format('%*s',[2,H]);
+  // ShowMessage(Hour);
+  end
+  else if H = '0' then Hour := '00'
+  else if Length(H) = 2 then Hour := H;
+
+
+  if Length(M) = 1 then Min := Format('%*s',[2,M])
+  else if M = '0' then Min := '00'
+  else if Length(M) = 2 then Min := M;
+
+
+  Result := StringReplace(Hour,' ','0',[rfReplaceAll]) + ' : ' + StringReplace(Min,' ','0',[rfReplaceAll]);
+
+
+
+end;
+
+procedure TForm3.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  // Action := caFree;
+end;
+
+procedure TForm3.FormCreate(Sender: TObject);
+begin
+  //
+end;
+
+procedure TForm3.FormShow(Sender: TObject);
+begin
+  LOCKFlag := 'N';
+  qrywork.Connection := Main.Form1.AdoCon;
+  Check_TabGubun;
+  dateman.Date := Now;
+  if Main.NotWorkdate <>'' then
+  begin
+    dateman.Date := StrToDate(NotWorkdate);
+    INIT_MANGRID;
+    chk_SAVE;
+    do_GETMANDATA;
+    do_GETWORKDATA;
+    do_getWeektime;
+    LOCKMOUSE;
+  end
+  else
+  begin
+    dateman.Date := Now;
+  end;
+  datets.Date := Now;
+  date_jiwon.Date := Now;
+
+
+  INIT_MANGRID;
+  do_GETMANDATA;
+  do_GETWORKDATA;
+
+  INIT_TSGRID;
+  do_GETTSDATA;
+
+   do_INITJIWON;
+
+   do_GETJIWONDATA;
+
+   if (MyTeam = 'J1') or (MyTeam = 'P1')or (MyTeam = 'J2')  then
+   begin
+     Button1.Visible := True;
+   end
+   else
+   begin
+     Button1.Visible := False;
+   end;
+   do_getWeektime;
+
+end;
+
+procedure TForm3.Grid_jiwonEditCellDone(Sender: TObject; ACol, ARow: Integer);
+begin
+  if (ARow > 0) and (ACol = 0) then
+  begin
+    if Length(Grid_jiwon.Cells[0, ARow]) >=13 then
+    begin
+      do_GetManager(Grid_jiwon.Cells[0, ARow], ARow);
+     // Grid_jiwon.SelectCells(1,Arow,1,Arow);
+    end;
+  end;
+end;
+
+
+procedure TForm3.Grid_jiwonGetEditMask(Sender: TObject; ACol, ARow: Integer;
+  var Value: string);
+begin
+   if (ARow >0) and (ACol = 1) then Value := '!90:00;1;_';
+end;
+
+procedure TForm3.Grid_jiwonGetFloatFormat(Sender: TObject; ACol, ARow: Integer;
+  var IsFloat: Boolean; var FloatFormat: string);
+begin
+
+  if (ARow > 0) and (ACol =5 ) and IsFloat then FloatFormat := '%.2f';
+end;
+
+procedure TForm3.Grid_jiwonKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_DOWN then
+  begin
+    if Grid_jiwon.Cells[0, Grid_jiwon.RowCount -1]  <> ''then
+    Grid_jiwon.AddRow;
+    Grid_jiwon.SelectCells(0,(Grid_jiwon.RowCount-1),0,Grid_jiwon.RowCount -1);
+
+  end;
+//  if Key = VK_DELETE then
+//  begin
+//    Grid_jiwon.RemoveRows(Grid_jiwon.Row, 1);
+//  end;
+end;
+
+
+procedure TForm3.grid_TsCanEditCell(Sender: TObject; ARow, ACol: Integer;
+  var CanEdit: Boolean);
+begin
+  if (ARow > 0 ) and (ACol = 3) then CanEdit := True;
+
+end;
+
+procedure TForm3.grid_TsCellValidate(Sender: TObject; ACol, ARow: Integer;
+  var Value: string; var Valid: Boolean);
+var
+  Count: Integer;
+begin
+//  for Count := 1 to grid_Ts.RowCount -1 do
+//    begin
+//      grid_Ts.Floats[]
+//    end;
+ //  grid_Ts.Floats[4, grid_Ts.RowCount-1] := grid_Ts.ColumnSum(4,1,grid_Ts.RowCount -2);
+end;
+
+procedure TForm3.grid_TsDrawCell(Sender: TObject; ACol, ARow: Integer;
+  Rect: TRect; State: TGridDrawState);
+begin
+  //if (ARow>0) and  (grid_Ts.Cells[5, ARow]= '') then
+
+end;
+
+procedure TForm3.grid_TsGetCellColor(Sender: TObject; ARow, ACol: Integer;
+  AState: TGridDrawState; ABrush: TBrush; AFont: TFont);
+begin
+  if ARow > 0  then
+  begin
+    if grid_Ts.Cells[6, Arow] = '' then
+    begin
+      ABrush.Color := $CCCCFF;
+    end;
+  end;
+end;
+
+procedure TForm3.grid_TsGetEditMask(Sender: TObject; ACol, ARow: Integer;
+  var Value: string);
+begin
+// if ACol = 5 then Value := '!90:00;1;_';
+end;
+
+procedure TForm3.grid_TsGetFloatFormat(Sender: TObject; ACol, ARow: Integer;
+  var IsFloat: Boolean; var FloatFormat: string);
+begin
+if (ARow > 0) and (ACol in [4,5]) and IsFloat then FloatFormat := '%.2f';
+
+end;
+
+procedure TForm3.grid_TsRadioMouseUp(Sender: TObject; ACol, ARow,
+  AIdx: Integer);
+begin
+ qrywork.SQL.Clear;
+ qrywork.Parameters.Clear;
+ qrywork.SQL.Text := 'UPDATE APW_TS_Master SET Score = :Score where MasterID =:Masterid';
+ qrywork.Parameters.ParamByName('Score').Value := AIdx;
+ qrywork.Parameters.ParamByName('Masterid').Value  := grid_Ts.Cells[0,ARow];
+ qrywork.ExecSQL;
+ // ShowMessage(IntToStr(AIdx-1));
+end;
+
+procedure TForm3.INIT_MANGRID;
+begin
+  ManGrid1.Clear;
+  ManGrid2.Clear;
+  ManGrid1.RowCount := 2;
+  ManGrid1.ColCount := 4;
+
+  ManGrid1.Cells[0, 0] := '감정서번호';
+  ManGrid1.Cells[1, 0] := '소재지';
+  ManGrid1.Cells[2, 0] := '유치자';
+  ManGrid1.Cells[3, 0] := '진행상태';
+
+  ManGrid1.ColWidths[0] := 100;
+  ManGrid1.ColWidths[1] := 200;
+  ManGrid1.ColWidths[2] := 60;
+  ManGrid1.ColWidths[3] := 100;
+
+  ManGrid2.RowCount := 2;
+  ManGrid2.ColCount := 5;
+
+  ManGrid2.Cells[0, 0] := '감정서번호';
+  ManGrid2.Cells[1, 0] := '업무시간';
+  ManGrid2.Cells[2, 0] := '유치자';
+  ManGrid2.Cells[3, 0] := 'workhour';
+  ManGrid2.Cells[4, 0] := '업무내용';
+
+
+  ManGrid2.ColWidths[0] := 100;
+  ManGrid2.ColWidths[1] := 80;
+  ManGrid2.ColWidths[2] := 80;
+  ManGrid2.ColWidths[3] := 0;
+  ManGrid2.ColWidths[4] := 150;
+
+end;
+
+procedure TForm3.INIT_TSGRID;
+begin
+  grid_Ts.Clear;
+  grid_Ts.Clear;;
+  grid_Ts.RowCount := 2;
+  grid_Ts.ColCount := 7;
+
+  grid_Ts.Cells[0, 0] := '탁상번호';
+  grid_Ts.Cells[1, 0] := '소재지';
+  grid_Ts.Cells[2, 0] := '유치자';
+  grid_Ts.Cells[3, 0] := '난이도';
+  grid_Ts.Cells[4, 0] := 'calsul';
+  grid_Ts.Cells[5, 0] := 'time';
+  grid_Ts.Cells[6, 0] := 'workhour';
+
+  grid_Ts.ColWidths[0] := 100;
+  grid_Ts.ColWidths[1] := 200;
+  grid_Ts.ColWidths[2] := 80;
+  grid_Ts.ColWidths[3] := 200;
+  grid_Ts.ColWidths[4] :=0;
+  grid_Ts.ColWidths[5] :=0;
+  grid_Ts.ColWidths[6] :=0;
+  chk_SAVE;
+end;
+
+procedure TForm3.LOCKMOUSE;
+const
+    crMyCursor = 99;
+var
+  rect : TRect;
+begin
+  LOCKFlag := 'Y';
+  rect := Form3.ClientRect;
+  rect.TopLeft := Form3.ClientToScreen(Rect.TopLeft);
+  rect.BottomRight := Form3.ClientToScreen(Rect.BottomRight);
+
+  ClipCursor(@rect);
+  Form3.FormStyle := fsStayOnTop;
+ // LOCK_LOGIN;
+end;
+
+procedure TForm3.LOCK_LOGIN;
+begin
+   qrywork.SQL.Clear;
+   qrywork.Parameters.Clear;
+   qrywork.SQL.Text := 'UPDATE Seat_UserInfo set LOGINYN = :Flag where UName = :name';
+   qrywork.Parameters.ParamByName('Flag').Value := 'N';
+   qrywork.Parameters.ParamByName('name').Value  := MyName;
+   qrywork.ExecSQL;
+
+
+end;
+
+procedure TForm3.ManGrid1DblClickCell(Sender: TObject; ARow, ACol: Integer);
+begin
+  if (ARow > 0) then  do_AddWork(ManGrid1.Cells[0, ARow]);
+
+end;
+
+procedure TForm3.ManGrid2CanEditCell(Sender: TObject; ARow, ACol: Integer;
+  var CanEdit: Boolean);
+begin
+//  if (ARow >0) and (ACol in [0..2]) then CanEdit := True
+//  else CanEdit := False;
+
+  //if (ARow > 0 ) and (ManGrid2.Cells[0, ARow] = '') then CanEdit := True;
+
+
+end;
+
+procedure TForm3.ManGrid2CellsChanged(Sender: TObject; R: TRect);
+begin
+ //
+end;
+
+procedure TForm3.ManGrid2DblClickCell(Sender: TObject; ARow, ACol: Integer);
+begin
+//  if (ARow >0 )and (ManGrid2.Cells[0, ARow] <>'') then
+//  begin
+//   // ManGrid2.RemoveSelectedRows;
+//  end;
+end;
+
+procedure TForm3.ManGrid2EditCellDone(Sender: TObject; ACol, ARow: Integer);
+begin
+  if (ARow > 0) then
+  begin
+    if Length(ManGrid2.Cells[0, ARow]) >=13 then
+    begin
+
+      do_GetDocidData(ManGrid2.Cells[0, ARow], ARow);
+    end
+    else if (Trim(ManGrid2.Cells[0, ARow]) ='기타') then
+    begin
+       //
+    end
+    else
+    begin
+      ShowMessage('감정서번호만 입력가능');
+      ManGrid2.Cells[0, ARow] := '';
+    end;
+
+  end;
+end;
+
+procedure TForm3.ManGrid2GetEditMask(Sender: TObject; ACol, ARow: Integer;
+  var Value: string);
+begin
+  if (ARow >0) and (ACol = 1) then Value := '!90:00;1;_';
+
+end;
+
+procedure TForm3.ManGrid2KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if Key = VK_DOWN then
+  begin
+    if ManGrid2.Cells[0, ManGrid2.RowCount -1]  <> ''then
+    ManGrid2.AddRow;
+    ManGrid2.SelectCells(0,(ManGrid2.RowCount-1),0,ManGrid2.RowCount -1);
+
+  end;
+//  if Key = VK_DELETE then
+//  begin
+//    ManGrid2.RemoveRows(ManGrid2.Row, 1);
+//  end;
+end;
+
+procedure TForm3.pr2Click(Sender: TObject);
+begin
+  INIT_MANGRID;
+  chk_SAVE;
+  do_GETMANDATA;
+  do_GETWORKDATA;
+  do_getWeektime;
+end;
+
+procedure TForm3.pr3Click(Sender: TObject);
+begin
+
+   do_CalTS;
+ //  grid_Ts.FloatingFooter.ColumnCalc[4] := acSUM;
+ // grid_Ts.FloatingFooter.ColumnCalc[5] := acSUM;
+end;
+
+procedure TForm3.prworkcancelClick(Sender: TObject);
+var
+  count : Integer;
+  Total : Integer;
+begin
+
+  Total := 0;
+   for count := 1 to ManGrid2.RowCount -1 do
+   begin
+
+    if ManGrid2.Cells[0, Count]='' then   ManGrid2.RemoveRows(Count, 1);
+    if ManGrid2.Cells[1 , count] = '' then
+    begin
+      ShowMessage(ManGrid2.Cells[1, Count]+' 시간을 입력해주세요');
+      Exit;
+    end;
+     ManGrid2.Cells[3, count] := IntToStr(CalculTime(ManGrid2.Cells[1,Count]));
+     Total := Total + CalculTime(ManGrid2.Cells[1,Count]);
+   end;
+   if (Total < 480) then
+   begin
+
+    ShowMessage('총 8시간이 안되었습니다. 8시간 맞춰서 입력해 주세요.');
+    Exit;
+
+   end
+   else if (Total > 480) then
+   begin
+
+    ShowMessage('총 8시간이 넘었습니다. 8시간 맞춰서 입력해 주세요.');
+    Exit;
+
+   end
+   else
+   begin
+     Close;
+   end;
+
+
+end;
+
+procedure TForm3.prworksaveClick(Sender: TObject);
+var
+  count : Integer;
+  Total : Integer;
+begin
+
+  Total := 0;
+   for count := 1 to ManGrid2.RowCount -1 do
+   begin
+
+    if ManGrid2.Cells[0, Count]='' then   ManGrid2.RemoveRows(Count, 1);
+    if ManGrid2.Cells[1 , count] = '' then
+    begin
+      ShowMessage(ManGrid2.Cells[1, Count]+' 시간을 입력해주세요');
+      Exit;
+    end;
+     ManGrid2.Cells[3, count] := IntToStr(CalculTime(ManGrid2.Cells[1,Count]));
+     Total := Total + CalculTime(ManGrid2.Cells[1,Count]);
+   end;
+
+   if (Total < 480) then
+   begin
+
+    ShowMessage('총 8시간이 안되었습니다. 8시간 맞춰서 입력해 주세요.');
+    Exit;
+
+   end
+   else if (Total > 480) then
+   begin
+
+    ShowMessage('총 8시간이 넘었습니다. 8시간 맞춰서 입력해 주세요.');
+    Exit;
+
+   end;
+
+//   if Total  <> 100 then
+//   begin
+//     ShowMessage('업무기여도가 100%가 아닙니다');
+//     Exit;
+//   end;
+
+    qrywork.SQL.Clear;
+    qrywork.Parameters.Clear;
+    qrywork.SQL.Text := 'EXEC SP_IW_ID_MANWORK :name , :workdate, :docid, :workper, :writedate, :Gubun, :Manager, :workhour, :showhour,:flag, :WorkBigo';
+    qrywork.Parameters.ParamByName('name').Value := Main.MyName;
+    qrywork.Parameters.ParamByName('workdate').Value := dateman.Date;
+    qrywork.Parameters.ParamByName('docid').Value := '';
+    qrywork.Parameters.ParamByName('workper').Value := 0;
+    qrywork.Parameters.ParamByName('writedate').Value := Now;
+    qrywork.Parameters.ParamByName('Gubun').Value := 1;
+    qrywork.Parameters.ParamByName('Manager').Value := '';
+    qrywork.Parameters.ParamByName('workhour').Value := 0;
+    qrywork.Parameters.ParamByName('showhour').Value := '';
+    qrywork.Parameters.ParamByName('flag').Value := 2;
+    qrywork.Parameters.ParamByName('WorkBigo').Value := '';
+    qrywork.ExecSQL;
+  count := 0;
+  //ShowMessage('deletecom');
+  for count := 1 to ManGrid2.RowCount -1 do
+  begin
+    qrywork.SQL.Clear;
+    qrywork.Parameters.Clear;
+    qrywork.SQL.Text := 'EXEC SP_IW_ID_MANWORK :name , :workdate, :docid, :workper, :writedate, :Gubun, :Manager, :workhour, :showhour,:flag, :WorkBigo';
+    qrywork.Parameters.ParamByName('name').Value := Main.MyName;
+    qrywork.Parameters.ParamByName('workdate').Value := dateman.Date;
+    qrywork.Parameters.ParamByName('docid').Value := ManGrid2.Cells[0, count];
+    qrywork.Parameters.ParamByName('workper').Value := StrToInt(ManGrid2.Cells[3, Count])/ Total * 100;
+   // ShowMessage(ManGrid2.Cells[1, count]);
+    qrywork.Parameters.ParamByName('writedate').Value := Now;
+    qrywork.Parameters.ParamByName('Gubun').Value := 1;
+    qrywork.Parameters.ParamByName('Manager').Value := Trim(ManGrid2.Cells[2, count]);
+    qrywork.Parameters.ParamByName('workhour').Value := CalculTime(ManGrid2.Cells[1, count]);
+    qrywork.Parameters.ParamByName('showhour').Value := ManGrid2.Cells[1, count];
+    qrywork.Parameters.ParamByName('flag').Value := 1;
+    qrywork.Parameters.ParamByName('WorkBigo').Value := ManGrid2.Cells[4, count];
+    qrywork.ExecSQL;
+  end;
+ // qrywork.Close;
+    if LOCKFlag  = 'Y' then
+  begin
+    UNLOCKMOUSE;
+   // UNLOCK_LOGIN;
+  end;
+  ShowMessage('저장되었습니다.');
+  INIT_MANGRID;
+  do_GETMANDATA;
+  do_GETWORKDATA;
+
+end;
+
+procedure TForm3.pr_TsSAVEClick(Sender: TObject);
+var
+  count : Integer;
+  Total : Integer;
+begin
+    do_CalTS;
+    qrywork.SQL.Clear;
+    qrywork.Parameters.Clear;
+    qrywork.SQL.Text := 'EXEC SP_IW_ID_MANWORK :name , :workdate, :docid, :workper, :writedate, :Gubun, :Manager, :workhour, :showhour,:flag, :WorkBigo';
+    qrywork.Parameters.ParamByName('name').Value := Main.MyName;
+    qrywork.Parameters.ParamByName('workdate').Value := dateman.Date;
+    qrywork.Parameters.ParamByName('docid').Value := '';
+    qrywork.Parameters.ParamByName('workper').Value := 0;
+    qrywork.Parameters.ParamByName('writedate').Value := Now;
+    qrywork.Parameters.ParamByName('Gubun').Value := 2;
+    qrywork.Parameters.ParamByName('Manager').Value := '';
+    qrywork.Parameters.ParamByName('workhour').Value := 0;
+    qrywork.Parameters.ParamByName('showhour').Value := '';
+    qrywork.Parameters.ParamByName('flag').Value := 2;
+    qrywork.Parameters.ParamByName('WorkBigo').Value := '';
+    qrywork.ExecSQL;
+  count := 0;
+  for count := 1 to grid_Ts.RowCount -1 do
+  begin
+    qrywork.SQL.Clear;
+    qrywork.Parameters.Clear;
+    qrywork.SQL.Text := 'EXEC SP_IW_ID_MANWORK :name , :workdate, :docid, :workper, :writedate, :Gubun, :Manager, :workhour, :showhour,:flag , :WorkBigo';
+    qrywork.Parameters.ParamByName('name').Value := Main.MyName;
+    qrywork.Parameters.ParamByName('workdate').Value := datets.Date;
+    qrywork.Parameters.ParamByName('docid').Value := grid_Ts.Cells[0, count];
+    qrywork.Parameters.ParamByName('workper').Value := StrToFloat(grid_Ts.Cells[4,Count]);
+    qrywork.Parameters.ParamByName('writedate').Value := Now;
+    qrywork.Parameters.ParamByName('Gubun').Value := 2;
+    qrywork.Parameters.ParamByName('Manager').Value := Trim(grid_Ts.Cells[2, count]);
+    qrywork.Parameters.ParamByName('workhour').Value := StrToFloat(grid_Ts.Cells[5, count]);
+    qrywork.Parameters.ParamByName('showhour').Value :='';
+    qrywork.Parameters.ParamByName('flag').Value := 1;
+     qrywork.Parameters.ParamByName('WorkBigo').Value := '';
+    qrywork.ExecSQL;
+  end;
+  ShowMessage('저장되었습니다.');
+  INIT_TSGRID;
+  do_GETTSDATA;
+
+end;
+
+
+procedure TForm3.pr_tssearchClick(Sender: TObject);
+begin
+  INIT_TSGRID;
+  chk_SAVE;
+  do_GETTSDATA;
+  do_getWeektime;
+end;
+
+procedure TForm3.UNLOCKMOUSE;
+begin
+  Form3.FormStyle := fsNormal;
+  ClipCursor(nil);
+  LOCKFlag := 'N';
+end;
+
+procedure TForm3.UNLOCK_LOGIN;
+begin
+  qrywork.SQL.Clear;
+   qrywork.Parameters.Clear;
+   qrywork.SQL.Text := 'UPDATE Seat_UserInfo set LOGINYN = :Flag where UName = :name';
+   qrywork.Parameters.ParamByName('Flag').Value := 'Y';
+   qrywork.Parameters.ParamByName('name').Value  := MyName;
+   qrywork.ExecSQL;
+
+end;
+
+function TForm3.CalcworkTime(WorkHour: integer): string;
+var
+  HH, MM : Integer;
+  Result_HH, Result_MM : string;
+begin
+
+  HH := (WorkHour div 60);
+  MM := (WorkHour mod 60);
+
+  if (Length(IntToStr(HH)) < 2) then
+  Begin
+
+    Result_HH := Format('%.2d', [HH]);
+
+  End
+  else
+  Begin
+
+    Result_HH := IntToStr(HH);
+
+  End;
+
+  if (Length(IntToStr(MM)) < 2) then
+  Begin
+
+    Result_MM := Format('%.2d', [MM]);
+
+  End
+  else
+  begin
+
+    Result_MM := IntToStr(MM)
+
+  end;
+
+  Result := Result_HH + ':' + Result_MM;
+end;
+
+end.

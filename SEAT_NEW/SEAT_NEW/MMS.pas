@@ -1,0 +1,565 @@
+unit MMS;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxContainer, cxEdit, dxSkinsCore,
+  dxSkinsDefaultPainters, Vcl.Menus, cxCustomData, cxStyles, cxTL,
+  cxInplaceContainer, cxTLData, cxDBTL, Vcl.StdCtrls, cxButtons, cxMemo,
+  cxTextEdit, cxLabel, Vcl.ExtCtrls, cxMaskEdit, Data.DB, Data.Win.ADODB,
+  Vcl.Grids, AdvObj, BaseGrid, AdvGrid, dxVirtualTrees, cxCheckBox,
+  dxSkinscxPCPainter, cxPC, juso, AdvUtil;
+
+type
+  TForm12 = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    Panel7: TPanel;
+    Panel8: TPanel;
+    cxLabel73: TcxLabel;
+    edit_callfrom: TcxTextEdit;
+    cxLabel1: TcxLabel;
+    cxLabel2: TcxLabel;
+    memo_text: TcxMemo;
+    cxLabel3: TcxLabel;
+    edit_img1: TcxTextEdit;
+    btn_img1: TcxButton;
+    cxLabel4: TcxLabel;
+    edit_img2: TcxTextEdit;
+    btn_img2: TcxButton;
+    cxLabel5: TcxLabel;
+    edit_img3: TcxTextEdit;
+    btn_img3: TcxButton;
+    ADOConnection1: TADOConnection;
+    ADOQuery1: TADOQuery;
+    ADOQuery2: TADOQuery;
+    ADOQuery3: TADOQuery;
+    DataSource1: TDataSource;
+    btn_add: TButton;
+    grid_send: TAdvStringGrid;
+    OpenDialog1: TOpenDialog;
+    Grid_tel: TAdvStringGrid;
+    teamGrid: TAdvStringGrid;
+    btn_add2: TButton;
+    Label1: TLabel;
+    btn_SEND: TButton;
+    btn_Close: TButton;
+    cxLabel6: TcxLabel;
+    edit_subject: TcxTextEdit;
+    ADOQuery4: TADOQuery;
+    edit_Gname: TEdit;
+    edit_Iname: TEdit;
+    btn_Gserch: TButton;
+    btn_Iserch: TButton;
+    btn_juso: TButton;
+    procedure FormShow(Sender: TObject);
+
+    procedure teamGridGetAlignment(Sender: TObject; ARow, ACol: Integer;
+      var HAlign: TAlignment; var VAlign: TVAlignment);
+    procedure btn_addClick(Sender: TObject);
+
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btn_add2Click(Sender: TObject);
+    procedure btn_img1Click(Sender: TObject);
+    procedure btn_img2Click(Sender: TObject);
+    procedure btn_img3Click(Sender: TObject);
+    procedure btn_CloseClick(Sender: TObject);
+    procedure btn_SENDClick(Sender: TObject);
+    procedure grid_sendDblClickCell(Sender: TObject; ARow, ACol: Integer);
+    procedure btn_GserchClick(Sender: TObject);
+    procedure edit_GnameKeyPress(Sender: TObject; var Key: Char);
+    procedure edit_InameKeyPress(Sender: TObject; var Key: Char);
+    procedure btn_IserchClick(Sender: TObject);
+    procedure btn_jusoClick(Sender: TObject);
+
+  private
+    { Private declarations }
+    procedure do_initteamGrid;
+    procedure do_getTeamGrid(search: String);
+    procedure do_gettel(team: String);
+    procedure do_inittel;
+    procedure do_initsend;
+    function SubStr(Str: string; const Position: integer; const Delimiter: string): string;
+    procedure do_SENDMMS(KIND,NAME: String);
+  public
+    { Public declarations }
+  end;
+
+var
+  Form12: TForm12;
+  tellist : TStringList;
+
+implementation
+
+{$R *.dfm}
+
+{ TForm12 }
+
+procedure TForm12.btn_add2Click(Sender: TObject);
+var
+  count, I: Integer;
+  chk: Boolean;
+begin
+  count := 0;
+
+  tellist.Text := '';
+
+  for count := 1 to Grid_tel.RowCount do
+    begin
+
+      Grid_tel.GetCheckBoxState(0,count,chk);
+      if chk  then
+      begin
+        grid_send.AddRow;
+        grid_send.Cells[0,grid_send.RowCount-2]:= 'I|'+Grid_tel.Cells[1,count] + '|'+Grid_tel.Cells[2,count];
+      end;
+    end;
+
+end;
+
+procedure TForm12.btn_addClick(Sender: TObject);
+var
+  count, I: Integer;
+  chk: Boolean;
+begin
+  count := 0;
+  tellist.Text := '';
+
+  for count := 1 to teamGrid.RowCount do
+    begin
+
+      teamGrid.GetCheckBoxState(0,count,chk);
+      if chk  then
+      begin
+        grid_send.AddRow;
+        grid_send.Cells[0,grid_send.RowCount-2]:= 'G|'+teamGrid.Cells[1,count];
+      end;
+    end;
+
+end;
+
+procedure TForm12.btn_CloseClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TForm12.btn_GserchClick(Sender: TObject);
+begin
+  do_getTeamGrid(edit_Gname.Text);
+end;
+
+procedure TForm12.btn_img1Click(Sender: TObject);
+var
+  filename: String;
+begin
+  if OpenDialog1.Execute then
+   begin
+//    ShowMessage( ExtractFileExt(OpenDialog1.FileName));
+    if ExtractFileExt(OpenDialog1.FileName)  <> '.jpg' then
+    begin
+     ShowMessage('jpg파일만 전송가능합니다');
+     edit_img1.Text := '';
+   Exit;
+    end;
+//   if SubStr(OpenDialog1.FileName,2,'.')<>'jpg' then
+//   begin
+//     ShowMessage('jpg파일만 전송가능합니다');
+//   edit_img1.Text := '';
+//   Exit;
+//   end;
+     CopyFile(Pchar(OpenDialog1.FileName),Pchar('\\CAPS\mmsimage\'+ExtractFileName(OpenDialog1.FileName)),False);
+
+     filename :=   ExtractFileName(OpenDialog1.FileName);
+     edit_img1.Text := filename;
+   end;
+
+end;
+
+procedure TForm12.btn_img2Click(Sender: TObject);
+var
+  filename: String;
+begin
+  if edit_img1.Text ='' then
+  begin
+    ShowMessage('1번부터 사진을 넣어주세요');
+    Exit;
+  end;
+   if ExtractFileExt(OpenDialog1.FileName)  <> '.jpg' then
+    begin
+     ShowMessage('jpg파일만 전송가능합니다');
+     edit_img2.Text := '';
+   Exit;
+    end;
+  if OpenDialog1.Execute then
+   begin
+     CopyFile(Pchar(OpenDialog1.FileName),Pchar('\\CAPS\mmsimage\'+ExtractFileName(OpenDialog1.FileName)),False);
+
+     filename :=   ExtractFileName(OpenDialog1.FileName);
+     edit_img2.Text := filename;
+   end;
+//   if SubStr(filename,2,'.') <> 'jpg' then
+//   ShowMessage('jpg파일만 전송가능합니다');
+//   edit_img2.Text := '';
+//   Exit;
+end;
+
+procedure TForm12.btn_img3Click(Sender: TObject);
+var
+  filename: String;
+begin
+  if edit_img2.Text ='' then
+  begin
+    ShowMessage('2번부터 사진을 넣어주세요');
+    Exit;
+  end;
+   if ExtractFileExt(OpenDialog1.FileName)  <> '.jpg' then
+    begin
+     ShowMessage('jpg파일만 전송가능합니다');
+     edit_img3.Text := '';
+   Exit;
+    end;
+  if OpenDialog1.Execute then
+   begin
+     CopyFile(Pchar(OpenDialog1.FileName),Pchar('\\CAPS\mmsimage\'+ExtractFileName(OpenDialog1.FileName)),False);
+
+     filename :=   ExtractFileName(OpenDialog1.FileName);
+     edit_img3.Text := filename;
+   end;
+//   if SubStr(filename,2,'.') <> 'jpg' then
+//   ShowMessage('jpg파일만 전송가능합니다');
+//   edit_img3.Text :='';
+//   Exit;
+end;
+
+procedure TForm12.btn_IserchClick(Sender: TObject);
+begin
+  do_gettel(edit_Iname.Text);
+end;
+
+procedure TForm12.btn_jusoClick(Sender: TObject);
+begin
+  juso.Form13.Show;
+end;
+
+procedure TForm12.btn_SENDClick(Sender: TObject);
+var
+  count: Integer;
+begin
+//
+  for count := 0 to grid_send.RowCount-1 do
+    begin
+      if SubStr(grid_send.Cells[0, count],1,'|') = 'G' then
+      begin
+         do_SENDMMS('G',SubStr(grid_send.Cells[0, count],2,'|'));
+      end
+      else if SubStr(grid_send.Cells[0, count],1,'|') = 'I' then
+       begin
+          do_SENDMMS('I',SubStr(grid_send.Cells[0, count],3,'|'));
+       end
+      else
+      begin
+        //
+      end;
+
+
+      //ShowMessage(SubStr(grid_send.Cells[0,count],2,'|'));
+    end;
+
+end;
+
+procedure TForm12.do_getTeamGrid(search: String);
+var
+  Count: Integer;
+begin
+  ADOQuery1.SQL.Text := '';
+  if search = '' then
+  begin
+    ADOQuery1.SQL.Text := 'select DISTINCT(team),count(team) as count  from dbo.sms_addr GROUP BY team';
+  end
+  else
+  begin
+    ADOQuery1.SQL.Text := 'select DISTINCT(team),count(team) as count  from dbo.sms_addr WHERE TEAM like''' + '%'+ search+ '%'+'''GROUP BY team ' ;
+    //ADOQuery1.Parameters.ParamByName('TEAM').Value := search;
+  end;
+
+
+  ADOQuery1.Open;
+  if ADOQuery1.Eof then Exit;
+  teamGrid.RowCount := ADOQuery1.RecordCount + 1;
+
+  for Count := 1 to teamGrid.RowCount -1  do
+    begin
+      teamGrid.AddCheckBox(0,Count,False,False);
+      teamGrid.Cells[1, Count] :=   ADOQuery1.FieldByName('team').AsString;
+      teamGrid.Cells[2, Count] :=   ADOQuery1.FieldByName('count').AsString;
+      ADOQuery1.Next;
+    end;
+end;
+
+procedure TForm12.do_gettel(team: String);
+var
+  Count : Integer;
+begin
+  //
+  ADOQuery2.SQL.Text := '';
+  ADOQuery2.Parameters.Clear;
+  if team= '' then
+  begin
+    ADOQuery2.SQL.Text := 'select DISTINCT(name),Phone  from dbo.sms_addr';
+  end
+  else
+  begin
+    ADOQuery2.SQL.Text := 'select DISTINCT(name),Phone  from dbo.sms_addr WHERE name like '''+ '%'+ team + '%'+'''';
+  end;
+  ADOQuery2.Open;
+
+  Grid_tel.RowCount := ADOQuery2.RecordCount + 1;
+  for Count := 1 to Grid_tel.RowCount -1  do
+    begin
+       Grid_tel.AddCheckBox(0,Count,False,True);
+       Grid_tel.Cells[1, Count] := ADOQuery2.FieldByName('Name').AsString;
+       Grid_tel.Cells[2, Count] := ADOQuery2.FieldByName('Phone').AsString;
+       ADOQuery2.Next;
+    end;
+end;
+
+procedure TForm12.do_initsend;
+begin
+  grid_send.Clear;
+  grid_send.RowCount := 0;
+  grid_send.ColCount := 1;
+
+  grid_send.ColWidths[0] := 150;
+
+end;
+
+procedure TForm12.do_initteamGrid;
+begin
+  teamGrid.ClearAll;
+  teamGrid.RowCount := 2;
+  teamGrid.ColCount := 3;
+  teamGrid.Cells[0, 0] := '체크';
+  teamGrid.Cells[1, 0] := '그룹명';
+   teamGrid.Cells[2, 0] := '인원수';
+  teamGrid.ColWidths[0] := 30;
+  teamGrid.ColWidths[1] := 150;
+  teamGrid.ColWidths[2] := 50;
+
+
+end;
+
+procedure TForm12.do_inittel;
+begin
+
+  Grid_tel.ClearAll;
+  Grid_tel.RowCount := 2;
+  Grid_tel.ColCount := 3;
+  Grid_tel.Cells[0, 0] := '체크';
+  Grid_tel.Cells[1, 0] := '이름';
+  Grid_tel.Cells[2, 0] := '번   호';
+  Grid_tel.ColWidths[0] := 30;
+  Grid_tel.ColWidths[1] := 130;
+  Grid_tel.ColWidths[2] := 180;
+end;
+
+procedure TForm12.do_SENDMMS(KIND,NAME: String);
+var
+  COUNT,CNT: Integer;
+  CALL_FROM: String;
+begin
+  CNT := 0;
+  CALL_FROM := '';
+  if edit_img1.Text <>'' then CNT := CNT + 1;
+  if edit_img2.Text <>'' then CNT := CNT + 1;
+  if edit_img3.Text <>'' then CNT := CNT + 1;
+  if KIND = 'G' then
+  begin
+    ADOQuery3.SQL.Text := '';
+    ADOQuery3.Parameters.Clear;
+    ADOQuery3.SQL.Text  := 'SELECT PHONE FROM sms_addr WHERE team = :TEAM';
+    ADOQuery3.Parameters.ParamByName('TEAM').Value  := NAME;
+    ADOQuery3.Open;
+    if ADOQuery3.Eof then Exit;
+
+    for COUNT := 0 to ADOQuery3.RecordCount -1 do
+    begin
+      CALL_FROM := StringReplace(ADOQuery3.FieldByName('PHONE').AsString,'-','',[rfReplaceAll]);
+
+      //ShowMessage(CALL_FROM);
+      ADOQuery4.SQL.Text := '';
+      ADOQuery4.Parameters.Clear;
+      ADOQuery4.SQL.Text := 'EXEC MMS_SEND :FILE_CNT, :MMS_BODY, :MMS_SUBJECT,:FILE_TYPE1, :FILE_NAME1,:SERVICE_DEP1,:CALL_TO,:CALL_FROM ';
+      ADOQuery4.Parameters.ParamByName('FILE_CNT').Value    := CNT+1;
+      ADOQuery4.Parameters.ParamByName('MMS_BODY').Value    := memo_text.Text;
+      ADOQuery4.Parameters.ParamByName('MMS_SUBJECT').Value := edit_subject.Text;
+      if CNT = 0 then
+      begin
+        ADOQuery4.Parameters.ParamByName('FILE_TYPE1').Value:= '';
+        ADOQuery4.Parameters.ParamByName('FILE_NAME1').Value    := '';
+        ADOQuery4.Parameters.ParamByName('SERVICE_DEP1').Value  := '';
+      end
+      else
+      begin
+        ADOQuery4.Parameters.ParamByName('FILE_TYPE1').Value    := 'IMG';
+        ADOQuery4.Parameters.ParamByName('FILE_NAME1').Value    := 'D:\mmsimage\'+edit_img1.Text;
+        ADOQuery4.Parameters.ParamByName('SERVICE_DEP1').Value  := 'ALL';
+      end;
+
+      ADOQuery4.Parameters.ParamByName('CALL_TO').Value    :=  CALL_FROM;
+      ADOQuery4.Parameters.ParamByName('CALL_FROM').Value    := edit_callfrom.Text;
+      if CNT = 2 then
+      begin
+         ADOQuery4.SQL.Text := ADOQuery4.SQL.Text + ', :FILE_TYPE2, :FILE_NAME2, :SERVICE_DEP2';
+         ADOQuery4.Parameters.ParamByName('FILE_TYPE2').Value := 'IMG';
+         ADOQuery4.Parameters.ParamByName('FILE_NAME2').Value := 'D:\mmsimage\'+edit_img2.Text;
+         ADOQuery4.Parameters.ParamByName('SERVICE_DEP2').Value  := 'ALL';
+      end
+      else if CNT = 3  then
+      begin
+         ADOQuery4.SQL.Text := ADOQuery4.SQL.Text + ', :FILE_TYPE2, :FILE_NAME2, :SERVICE_DEP2, :FILE_TYPE3, :FILE_NAME3, :SERVICE_DEP3';
+         ADOQuery4.Parameters.ParamByName('FILE_TYPE2').Value := 'IMG';
+         ADOQuery4.Parameters.ParamByName('FILE_NAME2').Value := 'D:\mmsimage\'+edit_img2.Text;
+          ADOQuery4.Parameters.ParamByName('SERVICE_DEP2').Value  := 'ALL';
+         ADOQuery4.Parameters.ParamByName('FILE_TYPE3').Value := 'IMG';
+         ADOQuery4.Parameters.ParamByName('FILE_NAME3').Value := 'D:\mmsimage\'+edit_img3.Text;
+          ADOQuery4.Parameters.ParamByName('SERVICE_DEP3').Value  := 'ALL';
+      end;
+        ADOQuery4.ExecSQL;
+        ADOQuery3.Next;
+    end;
+  end
+  else if KIND = 'I' then
+  begin
+        ADOQuery4.SQL.Text := '';
+        ADOQuery4.Parameters.Clear;
+        ADOQuery4.SQL.Text := 'EXEC MMS_SEND :FILE_CNT, :MMS_BODY, :MMS_SUBJECT,:FILE_TYPE1, :FILE_NAME1,:SERVICE_DEP1,:CALL_TO,:CALL_FROM ';
+        ADOQuery4.Parameters.ParamByName('FILE_CNT').Value    := CNT+1;
+        ADOQuery4.Parameters.ParamByName('MMS_BODY').Value    := memo_text.Text;
+        ADOQuery4.Parameters.ParamByName('MMS_SUBJECT').Value := edit_subject.Text;
+         if CNT = 0 then
+      begin
+        ADOQuery4.Parameters.ParamByName('FILE_TYPE1').Value:= '';
+        ADOQuery4.Parameters.ParamByName('FILE_NAME1').Value    := '';
+        ADOQuery4.Parameters.ParamByName('SERVICE_DEP1').Value  := '';
+      end
+      else
+      begin
+        ADOQuery4.Parameters.ParamByName('FILE_TYPE1').Value    := 'IMG';
+        ADOQuery4.Parameters.ParamByName('FILE_NAME1').Value    := 'D:\mmsimage\'+edit_img1.Text;
+        ADOQuery4.Parameters.ParamByName('SERVICE_DEP1').Value  := 'ALL';
+      end;
+        ADOQuery4.Parameters.ParamByName('CALL_TO').Value    :=  StringReplace(NAME,'-','',[rfReplaceAll]);
+        ADOQuery4.Parameters.ParamByName('CALL_FROM').Value    := edit_callfrom.Text;
+        if CNT = 2 then
+        begin
+           ADOQuery4.SQL.Text := ADOQuery4.SQL.Text + ', :FILE_TYPE2, :FILE_NAME2, :SERVICE_DEP2';
+           ADOQuery4.Parameters.ParamByName('FILE_TYPE2').Value := 'IMG';
+           ADOQuery4.Parameters.ParamByName('FILE_NAME2').Value := 'D:\mmsimage\'+edit_img2.Text;
+           ADOQuery4.Parameters.ParamByName('SERVICE_DEP2').Value  := 'ALL';
+        end
+        else if CNT = 3  then
+        begin
+          ADOQuery4.SQL.Text := ADOQuery4.SQL.Text + ', :FILE_TYPE2, :FILE_NAME2, :SERVICE_DEP2, :FILE_TYPE3, :FILE_NAME3, :SERVICE_DEP3';
+         ADOQuery4.Parameters.ParamByName('FILE_TYPE2').Value := 'IMG';
+         ADOQuery4.Parameters.ParamByName('FILE_NAME2').Value := 'D:\mmsimage\'+edit_img2.Text;
+          ADOQuery4.Parameters.ParamByName('SERVICE_DEP2').Value  := 'ALL';
+         ADOQuery4.Parameters.ParamByName('FILE_TYPE3').Value := 'IMG';
+         ADOQuery4.Parameters.ParamByName('FILE_NAME3').Value := 'D:\mmsimage\'+edit_img3.Text;
+          ADOQuery4.Parameters.ParamByName('SERVICE_DEP3').Value  := 'ALL';
+        end;
+        ADOQuery4.ExecSQL;
+
+      end;
+
+end;
+
+procedure TForm12.edit_GnameKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then begin
+    btn_GserchClick(Sender);
+    key := #0;
+  end;
+end;
+
+procedure TForm12.edit_InameKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then begin
+      btn_IserchClick(Sender);
+    key := #0;
+  end;
+end;
+
+procedure TForm12.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+ // Action :=caFree;
+end;
+
+procedure TForm12.FormShow(Sender: TObject);
+var
+  chk: Boolean;
+begin
+  tellist := TStringList.Create;
+  //tellist.Clear;
+ // tellist.Delimiter := ',';
+  do_initteamGrid;
+  do_initsend;
+  do_inittel;
+  do_getTeamGrid('');
+  do_gettel('');
+
+end;
+
+
+procedure TForm12.grid_sendDblClickCell(Sender: TObject; ARow, ACol: Integer);
+begin
+  grid_send.RemoveRows(ARow,1);
+end;
+
+procedure TForm12.teamGridGetAlignment(Sender: TObject; ARow, ACol: Integer;
+  var HAlign: TAlignment; var VAlign: TVAlignment);
+begin
+  if (ACol = 0) or(ACol =1) then
+  begin
+    HAlign := taCenter;
+    VAlign := vtaCenter;
+  end;
+end;
+
+
+
+//문자 자르기
+function TForm12.SubStr(Str: string; const Position: integer;
+  const Delimiter: string): string;
+var
+  Strlen,ZeichenIdx,SubIdx,kompos:integer;
+begin
+
+    Result:='';
+    Str:=Str+Delimiter;
+    StrLen:=Length(Str);
+    ZeichenIdx:=1;
+    SubIdx:=1;
+    While ZeichenIdx<=StrLen do
+    begin
+      KomPos:=Pos(Delimiter,Str);
+      if KomPos<>0 then
+      begin
+        if SubIdx=Position then
+        begin
+          result:=Copy(Str,1,KomPos-1);
+          break;
+        end;
+        delete(Str,1,KomPos);
+        inc(SubIdx);
+      end;
+    inc(ZeichenIdx);
+    end;
+end;
+
+end.

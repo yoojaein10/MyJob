@@ -1,0 +1,195 @@
+unit JUN;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, AdvUtil, RzButton, Vcl.Grids, AdvObj,
+  BaseGrid, AdvGrid, Vcl.ExtCtrls, Data.DB, Data.Win.ADODB;
+
+type
+  TForm2 = class(TForm)
+    D1: TPanel;
+    D2: TPanel;
+    pr1: TRzBitBtn;
+    qry_jun: TADOQuery;
+    AdvStringGrid1: TAdvStringGrid;
+    D3: TPanel;
+    AdvStringGrid2: TAdvStringGrid;
+    prBtn_Cancel: TRzBitBtn;
+    procedure FormShow(Sender: TObject);
+    procedure AdvStringGrid1GetAlignment(Sender: TObject; ARow, ACol: Integer;
+      var HAlign: TAlignment; var VAlign: TVAlignment);
+    procedure tmr1Timer(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure AdvStringGrid1DblClickCell(Sender: TObject; ARow, ACol: Integer);
+    procedure prBtn_CancelClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure INIT_Grid;
+    procedure do_getdata;
+    procedure INIT_DGrid;
+    procedure do_GETDData(Office: string);
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.dfm}
+
+uses Main;
+
+{ TForm2 }
+
+procedure TForm2.AdvStringGrid1DblClickCell(Sender: TObject; ARow,
+  ACol: Integer);
+begin
+   if ARow <> 0 then
+   begin
+     Form2.Width := 1109;
+     D3.Visible := True;
+     INIT_DGrid;
+     do_GETDData(AdvStringGrid1.Cells[0, ARow]);
+     //ShowMessage(AdvStringGrid1.Cells[0, ARow]);
+   end;
+end;
+
+procedure TForm2.AdvStringGrid1GetAlignment(Sender: TObject; ARow,
+  ACol: Integer; var HAlign: TAlignment; var VAlign: TVAlignment);
+begin
+  HAlign :=taCenter;
+  VAlign := vtaCenter;
+end;
+
+procedure TForm2.do_getdata;
+var
+  Count: Integer;
+begin
+  Count := 0;
+  if qry_jun.Active then qry_jun.Close;
+
+  qry_jun.SQL.Clear;
+  qry_jun.Parameters.Clear;
+  qry_jun.SQL.Text := 'EXEC SP_IW_S_KAIS_JUNCOUNT';
+  qry_jun.Open;
+  if qry_jun.Eof then Exit;
+  AdvStringGrid1.RowCount := qry_jun.RecordCount + 1;
+  for Count := 1 to AdvStringGrid1.RowCount -1 do
+    begin
+      with  AdvStringGrid1 do
+      begin
+        Cells[0, Count] := qry_jun.FieldByName('NAME').AsString;
+        Cells[1, Count] := qry_jun.FieldByName('Cnt_1').AsString;
+        Cells[2, Count] := qry_jun.FieldByName('Cnt_2').AsString;
+        qry_jun.Next;
+      end;
+    end;
+    AdvStringGrid1.SelectRows(1,1);
+  qry_jun.Close;
+end;
+
+procedure TForm2.do_GETDData(Office: string);
+var
+  Count: Integer;
+begin
+  Count := 0;
+  if qry_jun.Active then qry_jun.Close;
+  qry_jun.SQL.Clear;
+  qry_jun.Parameters.Clear;
+  qry_jun.SQL.Text := 'EXEC SP_IW_S_KAIS_JUNCOUNT_DETAIL :Office';
+  qry_jun.Parameters.ParamByName('Office').Value := Office;
+  qry_jun.Open;
+  if qry_jun.Eof then Exit;
+  AdvStringGrid2.RowCount := qry_jun.RecordCount + 1;
+  for Count := 1 to AdvStringGrid2.RowCount -1 do
+    begin
+      with  AdvStringGrid2 do
+      begin
+        Cells[0, Count] := qry_jun.FieldByName('docid').AsString;
+        Cells[1, Count] := qry_jun.FieldByName('overday').AsString;
+        Cells[2, Count] := qry_jun.FieldByName('Lpurpose').AsString;
+        Cells[3, Count] := qry_jun.FieldByName('senddate').AsString;
+        Cells[4, Count] := qry_jun.FieldByName('CustName').AsString;
+        Cells[5, Count] := qry_jun.FieldByName('LStatus').AsString;
+        qry_jun.Next;
+      end;
+    end;
+  qry_jun.Close;
+end;
+
+procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+end;
+
+procedure TForm2.FormShow(Sender: TObject);
+begin
+  INIT_Grid;
+  do_getdata;
+end;
+
+procedure TForm2.INIT_DGrid;
+begin
+    with  AdvStringGrid2 do
+  begin
+    ClearAll;
+    ColCount := 6;
+    RowCount := 2;
+
+    Cells[0, 0] := '감정서번호';
+    Cells[1, 0]  := 'OverDay';
+    Cells[2, 0]  := '평가목적';
+    Cells[3, 0]  := '발송일';
+    Cells[4, 0]  := '거래처명';
+    Cells[5, 0]  := '진행상태';
+
+    ColWidths[0] := 100;
+    ColWidths[1] := 70;
+    ColWidths[2] := 120;
+    ColWidths[3] := 100;
+    ColWidths[4] := 200;
+    ColWidths[5] := 100;
+
+  end;
+
+end;
+
+procedure TForm2.INIT_Grid;
+begin
+
+
+  with  AdvStringGrid1 do
+  begin
+    ClearAll;
+    ColCount := 3;
+    RowCount := 15;
+
+    Cells[0, 0] := '본지사';
+    Cells[1, 0]  := '0~39';
+    Cells[2, 0]  := '40 이상';
+
+    ColWidths[0] := 150;
+    ColWidths[1] := 100;
+    ColWidths[2] := 100;
+
+  end;
+
+end;
+
+procedure TForm2.prBtn_CancelClick(Sender: TObject);
+begin
+ Form2.Width := 360;
+ D3.Visible := False;
+end;
+
+procedure TForm2.tmr1Timer(Sender: TObject);
+begin
+//   INIT_Grid;
+//  do_getdata;
+end;
+
+end.

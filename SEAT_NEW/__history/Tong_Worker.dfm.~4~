@@ -1,0 +1,284 @@
+object Form7: TForm7
+  Left = 0
+  Top = 0
+  Caption = #50629#47924#51068#51648#54788#54889
+  ClientHeight = 598
+  ClientWidth = 1039
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 1039
+    Height = 598
+    Align = alClient
+    Color = clActiveCaption
+    ParentBackground = False
+    TabOrder = 0
+    object Panel2: TPanel
+      Left = 1
+      Top = 511
+      Width = 1037
+      Height = 86
+      Align = alBottom
+      TabOrder = 0
+      object Button1: TButton
+        Left = 800
+        Top = 32
+        Width = 75
+        Height = 25
+        Caption = 'Button1'
+        TabOrder = 0
+      end
+    end
+    object Panel3: TPanel
+      Left = 1
+      Top = 1
+      Width = 504
+      Height = 510
+      Align = alLeft
+      TabOrder = 1
+      object Panel5: TPanel
+        Left = 1
+        Top = 30
+        Width = 502
+        Height = 479
+        Align = alClient
+        TabOrder = 0
+        object KingCalendar1: TKingCalendar
+          AlignWithMargins = True
+          Left = 4
+          Top = 4
+          Width = 494
+          Height = 471
+          Align = alClient
+          BorderStyle = bsNone
+          Ctl3D = True
+          Day = 2
+          Month = 1
+          Year = 2020
+          TitleColor = clActiveCaption
+          TabOrder = 0
+          TextPlacement = ktTopLeft
+          DowNames.Strings = (
+            'Sun'
+            'Mon'
+            'Tue'
+            'Wed'
+            'Thu'
+            'Fri'
+            'Sat')
+          ColorSets.ColorSet1 = clBlack
+          ColorSets.ColorSet2 = clRed
+          ColorSets.ColorSet3 = 3241208
+          ColorSets.ColorSet4 = clGreen
+          ColorSets.ColorSet5 = clLime
+          ColorSets.ColorSet6 = clOlive
+          ColorSets.ColorSet7 = clYellow
+          ColorSets.ColorSet8 = clMaroon
+          ColorSets.ColorSet9 = clRed
+          StartingDay = 0
+          TextFont.Charset = DEFAULT_CHARSET
+          TextFont.Color = clWindowText
+          TextFont.Height = -15
+          TextFont.Name = 'Segoe UI'
+          TextFont.Style = [fsBold]
+          TitleFont.Charset = ANSI_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = #44404#47548#52404
+          TitleFont.Style = []
+          ColorCellDay = False
+          RowHeights = (
+            12
+            75
+            75
+            75
+            75
+            75
+            75)
+        end
+      end
+      object Panel6: TPanel
+        Left = 1
+        Top = 1
+        Width = 502
+        Height = 29
+        Align = alTop
+        TabOrder = 1
+        object KingNavigator1: TKingNavigator
+          Left = 1
+          Top = 1
+          Width = 500
+          Height = 27
+          CalendarSource = KingCalendar1
+          Highlight = clBlue
+          Align = alClient
+          TabOrder = 0
+          CaptionInToday = True
+          TodayText = 'Today'
+          ParentShowHint = False
+        end
+      end
+    end
+    object Panel4: TPanel
+      Left = 505
+      Top = 1
+      Width = 533
+      Height = 510
+      Align = alClient
+      TabOrder = 2
+      object AdvStringGrid1: TAdvStringGrid
+        Left = 1
+        Top = 1
+        Width = 531
+        Height = 508
+        Cursor = crDefault
+        Align = alClient
+        DrawingStyle = gdsClassic
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        ScrollBars = ssBoth
+        TabOrder = 0
+        GridLineColor = 15527152
+        GridFixedLineColor = 13947601
+        HoverRowCells = [hcNormal, hcSelected]
+        ActiveCellFont.Charset = DEFAULT_CHARSET
+        ActiveCellFont.Color = clWindowText
+        ActiveCellFont.Height = -11
+        ActiveCellFont.Name = 'Tahoma'
+        ActiveCellFont.Style = [fsBold]
+        ActiveCellColor = 16575452
+        ActiveCellColorTo = 16571329
+        ControlLook.FixedGradientMirrorFrom = 16049884
+        ControlLook.FixedGradientMirrorTo = 16247261
+        ControlLook.FixedGradientHoverFrom = 16710648
+        ControlLook.FixedGradientHoverTo = 16446189
+        ControlLook.FixedGradientHoverMirrorFrom = 16049367
+        ControlLook.FixedGradientHoverMirrorTo = 15258305
+        ControlLook.FixedGradientDownFrom = 15853789
+        ControlLook.FixedGradientDownTo = 15852760
+        ControlLook.FixedGradientDownMirrorFrom = 15522767
+        ControlLook.FixedGradientDownMirrorTo = 15588559
+        ControlLook.FixedGradientDownBorder = 14007466
+        ControlLook.DropDownHeader.Font.Charset = DEFAULT_CHARSET
+        ControlLook.DropDownHeader.Font.Color = clWindowText
+        ControlLook.DropDownHeader.Font.Height = -11
+        ControlLook.DropDownHeader.Font.Name = 'Tahoma'
+        ControlLook.DropDownHeader.Font.Style = []
+        ControlLook.DropDownHeader.Visible = True
+        ControlLook.DropDownHeader.Buttons = <>
+        ControlLook.DropDownFooter.Font.Charset = DEFAULT_CHARSET
+        ControlLook.DropDownFooter.Font.Color = clWindowText
+        ControlLook.DropDownFooter.Font.Height = -11
+        ControlLook.DropDownFooter.Font.Name = 'Tahoma'
+        ControlLook.DropDownFooter.Font.Style = []
+        ControlLook.DropDownFooter.Visible = True
+        ControlLook.DropDownFooter.Buttons = <>
+        Filter = <>
+        FilterDropDown.Font.Charset = DEFAULT_CHARSET
+        FilterDropDown.Font.Color = clWindowText
+        FilterDropDown.Font.Height = -11
+        FilterDropDown.Font.Name = 'Tahoma'
+        FilterDropDown.Font.Style = []
+        FilterDropDown.TextChecked = 'Checked'
+        FilterDropDown.TextUnChecked = 'Unchecked'
+        FilterDropDownClear = '(All)'
+        FilterEdit.TypeNames.Strings = (
+          'Starts with'
+          'Ends with'
+          'Contains'
+          'Not contains'
+          'Equal'
+          'Not equal'
+          'Larger than'
+          'Smaller than'
+          'Clear')
+        FixedRowHeight = 22
+        FixedFont.Charset = DEFAULT_CHARSET
+        FixedFont.Color = clBlack
+        FixedFont.Height = -11
+        FixedFont.Name = 'Tahoma'
+        FixedFont.Style = [fsBold]
+        FloatFormat = '%.2f'
+        HoverButtons.Buttons = <>
+        HoverButtons.Position = hbLeftFromColumnLeft
+        HTMLSettings.ImageFolder = 'images'
+        HTMLSettings.ImageBaseName = 'img'
+        Look = glWin7
+        PrintSettings.DateFormat = 'dd/mm/yyyy'
+        PrintSettings.Font.Charset = DEFAULT_CHARSET
+        PrintSettings.Font.Color = clWindowText
+        PrintSettings.Font.Height = -11
+        PrintSettings.Font.Name = 'Tahoma'
+        PrintSettings.Font.Style = []
+        PrintSettings.FixedFont.Charset = DEFAULT_CHARSET
+        PrintSettings.FixedFont.Color = clWindowText
+        PrintSettings.FixedFont.Height = -11
+        PrintSettings.FixedFont.Name = 'Tahoma'
+        PrintSettings.FixedFont.Style = []
+        PrintSettings.HeaderFont.Charset = DEFAULT_CHARSET
+        PrintSettings.HeaderFont.Color = clWindowText
+        PrintSettings.HeaderFont.Height = -11
+        PrintSettings.HeaderFont.Name = 'Tahoma'
+        PrintSettings.HeaderFont.Style = []
+        PrintSettings.FooterFont.Charset = DEFAULT_CHARSET
+        PrintSettings.FooterFont.Color = clWindowText
+        PrintSettings.FooterFont.Height = -11
+        PrintSettings.FooterFont.Name = 'Tahoma'
+        PrintSettings.FooterFont.Style = []
+        PrintSettings.PageNumSep = '/'
+        SearchFooter.Color = 16645370
+        SearchFooter.ColorTo = 16247261
+        SearchFooter.FindNextCaption = 'Find &next'
+        SearchFooter.FindPrevCaption = 'Find &previous'
+        SearchFooter.Font.Charset = DEFAULT_CHARSET
+        SearchFooter.Font.Color = clWindowText
+        SearchFooter.Font.Height = -11
+        SearchFooter.Font.Name = 'Tahoma'
+        SearchFooter.Font.Style = []
+        SearchFooter.HighLightCaption = 'Highlight'
+        SearchFooter.HintClose = 'Close'
+        SearchFooter.HintFindNext = 'Find next occurrence'
+        SearchFooter.HintFindPrev = 'Find previous occurrence'
+        SearchFooter.HintHighlight = 'Highlight occurrences'
+        SearchFooter.MatchCaseCaption = 'Match case'
+        SearchFooter.ResultFormat = '(%d of %d)'
+        SortSettings.DefaultFormat = ssAutomatic
+        SortSettings.HeaderColor = 16579058
+        SortSettings.HeaderColorTo = 16579058
+        SortSettings.HeaderMirrorColor = 16380385
+        SortSettings.HeaderMirrorColorTo = 16182488
+        Version = '8.3.2.6'
+        ColWidths = (
+          64
+          64
+          64
+          64
+          64)
+        RowHeights = (
+          22
+          22
+          22
+          22
+          22
+          22
+          22
+          22
+          22
+          22)
+      end
+    end
+  end
+end

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.774,=D:\SEAT\Unit2.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.424,=G:\SEAT_NEW\inout2.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.552,=D:\SEAT\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.955,D:\SEAT\Unit6.pas=D:\SEAT\WorkAccept.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.351,=D:\SEAT\Unit6.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.955,D:\SEAT\Unit6.dfm=D:\SEAT\WorkAccept.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.251,=E:\SEAT\Unit7.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.692,D:\SEAT\JUN.dfm=D:\SEAT\Unit2.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.701,D:\SEAT\WorkTong.dfm=D:\SEAT\Unit4.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.816,=D:\SEAT\Unit4.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.036,=D:\SEAT\Unit4.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.512,=D:\SEAT\Unit3.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.569,D:\SEAT\WorkList.pas=D:\SEAT\Unit3.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.149,D:\SEAT\ManWork.pas=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.103,E:\SEAT\Tong_Worker.dfm=E:\SEAT\Unit7.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.434,D:\SEAT\Unit5.pas=D:\SEAT\WorkEdit.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.103,E:\SEAT\Tong_Worker.pas=E:\SEAT\Unit7.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.174,D:\SEAT\MMS.pas=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.691,D:\SEAT\ManWork.pas=D:\SEAT\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.569,D:\SEAT\WorkList.dfm=D:\SEAT\Unit3.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.714,D:\SEAT\juso.pas=</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.434,D:\SEAT\Unit5.dfm=D:\SEAT\WorkEdit.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.376,=D:\SEAT\Unit5.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.692,D:\SEAT\JUN.pas=D:\SEAT\Unit2.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.701,D:\SEAT\WorkTong.pas=D:\SEAT\Unit4.pas</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="Inout.pas"/>
+    <File Path="Inout.dfm"/>
+    <File Path="JUN.pas"/>
+    <File Path="JUN.dfm"/>
+    <File Path="Main.pas"/>
+    <File Path="Main.dfm"/>
+    <File Path="stats.pas"/>
+    <File Path="stats.dfm"/>
+    <File Path="WorkList.pas"/>
+    <File Path="WorkList.dfm"/>
+    <File Path="WorkTong.pas"/>
+    <File Path="WorkTong.dfm"/>
+    <File Path="WorkEdit.pas"/>
+    <File Path="WorkEdit.dfm"/>
+    <File Path="Workmagam.pas"/>
+    <File Path="Workmagam.dfm"/>
+    <File Path="Tong_Worker.pas"/>
+    <File Path="Tong_Worker.dfm"/>
+    <File Path="inout2.pas"/>
+    <File Path="inout2.dfm"/>
+  </ProjectSortOrder>
+</BorlandProject>
