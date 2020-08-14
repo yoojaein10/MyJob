@@ -1,0 +1,21 @@
+object DM: TDM
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Left = 1006
+  Top = 349
+  Height = 296
+  Width = 304
+  object MSConnection: TMSConnection
+    Database = 'apworksdw'
+    Authentication = auServer
+    Options.PersistSecurityInfo = True
+    Options.Provider = 'SQLOLEDB.1'
+    Username = 'dh'
+    Password = 'daehwa0815!'
+    Server = '10.40.254.10'
+    Connected = True
+    LoginPrompt = False
+    Left = 36
+    Top = 13
+  end
+end

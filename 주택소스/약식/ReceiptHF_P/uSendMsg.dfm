@@ -1,0 +1,134 @@
+object frmSendmsg: TfrmSendmsg
+  Left = 621
+  Top = 289
+  Width = 342
+  Height = 237
+  Caption = #51452#53469#44552#50997#44277#49324#50640' '#51652#54665#49345#54889' '#50508#47548' '#48372#45236#44592
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  OnClose = FormClose
+  OnDestroy = FormDestroy
+  PixelsPerInch = 96
+  TextHeight = 13
+  object RzBitBtn2: TRzBitBtn
+    Tag = 1
+    Left = 23
+    Top = 16
+    Width = 109
+    Height = 32
+    FrameColor = 7617536
+    Caption = #51217#49688#50508#47548'  '#48372#45236#44592
+    Color = clMoneyGreen
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = #47569#51008' '#44256#46357
+    Font.Style = [fsBold]
+    HotTrack = True
+    ParentFont = False
+    TabOrder = 0
+    OnClick = RzBitBtn2Click
+  end
+  object RzBitBtn3: TRzBitBtn
+    Tag = 2
+    Left = 23
+    Top = 64
+    Width = 109
+    Height = 32
+    FrameColor = 7617536
+    Caption = #48176#51221#50508#47548'  '#48372#45236#44592
+    Color = clMoneyGreen
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = #47569#51008' '#44256#46357
+    Font.Style = [fsBold]
+    HotTrack = True
+    ParentFont = False
+    TabOrder = 1
+    OnClick = RzBitBtn2Click
+  end
+  object RzBitBtn4: TRzBitBtn
+    Tag = 3
+    Left = 23
+    Top = 112
+    Width = 109
+    Height = 32
+    FrameColor = 7617536
+    Caption = #52636#51109#50508#47548'  '#48372#45236#44592
+    Color = clMoneyGreen
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = #47569#51008' '#44256#46357
+    Font.Style = [fsBold]
+    HotTrack = True
+    ParentFont = False
+    TabOrder = 2
+    OnClick = RzBitBtn2Click
+  end
+  object RzBitBtn5: TRzBitBtn
+    Tag = 4
+    Left = 23
+    Top = 160
+    Width = 109
+    Height = 32
+    FrameColor = 7617536
+    Caption = #51089#49457#50508#47548'  '#48372#45236#44592
+    Color = clMoneyGreen
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = #47569#51008' '#44256#46357
+    Font.Style = [fsBold]
+    HotTrack = True
+    ParentFont = False
+    TabOrder = 3
+    OnClick = RzBitBtn2Click
+  end
+  object ClientSocket1: TClientSocket
+    Active = False
+    ClientType = ctNonBlocking
+    Port = 0
+    Left = 184
+    Top = 24
+  end
+  object qrySaveMsgLog: TkbmMWClientQuery
+    ClientAsTemplate = False
+    QueryService = 'Almighty'
+    QueryServiceVersion = '1.0'
+    CacheParams = ptUnknown
+    SessionName = 'ApWorksClient'
+    CacheFlags = []
+    Params = <>
+    TransportStreamFormat = DBM.ApStreamFormat
+    FetchLargeFieldsOnDemand = True
+    LargeFieldSize = 256
+    FetchMaxRecords = 0
+    AutoResolveOnChange = False
+    AutoResolveOnClose = False
+    AttachedAutoRefresh = True
+    AttachMaxCount = 1
+    FieldDefs = <>
+    IndexDefs = <>
+    SortOptions = []
+    PersistentBackup = False
+    ProgressFlags = [mtpcLoad, mtpcSave, mtpcCopy]
+    LoadedCompletely = False
+    SavedCompletely = False
+    EnableVersioning = True
+    FilterOptions = []
+    Version = '5.50'
+    LanguageID = 0
+    SortID = 0
+    SubLanguageID = 1
+    LocaleID = 1024
+    Left = 248
+    Top = 32
+  end
+end

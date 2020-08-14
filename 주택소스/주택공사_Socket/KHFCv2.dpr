@@ -1,0 +1,25 @@
+program KHFCv2;
+
+uses
+  ComObj,
+  ActiveX,
+  Forms,
+  Main in 'Main.pas' {FrmKHFC},
+  KHFCPool in 'KHFCPool.pas',
+  KHFC_Protocol in 'KHFC_Protocol.pas',
+  Data in 'Data.pas' {DM: TDataModule};
+
+{$R *.RES}
+
+begin
+
+  IsMultiThread := True;
+  CoInitFlags := COINIT_MULTITHREADED;
+
+  Application.Initialize;
+  Application.Title := '';
+  Application.CreateForm(TFrmKHFC, FrmKHFC);
+  Application.CreateForm(TDM, DM);
+  Application.Run;
+
+end.
